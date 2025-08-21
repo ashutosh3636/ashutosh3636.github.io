@@ -1411,3 +1411,16 @@ body {
 .loaded {
   opacity: 1;
 }
+/* ===== Timeline Images Styling ===== */
+.timeline-content img {
+  max-width: 120px;       /* control max width */
+  max-height: 60px;       /* control max height */
+  object-fit: contain;    /* prevents stretching */
+  display: block;         /* removes inline spacing */
+  margin: 10px auto;      /* centers + adds space */
+}
+.image-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
