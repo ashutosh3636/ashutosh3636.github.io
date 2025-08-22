@@ -183,16 +183,12 @@
               <!-- LOGO/IMAGE: fixed-height box fits any dimension (no crop) -->
               <!-- Slideshow (any image sizes) -->
 <div class="slider"
-     data-images='[
-       "images/whirlpool_logo.png",
-       "images/rover.png",
-       "images/whirlpool/3.jpg",
-       "images/whirlpool/4.jpg"
-     ]'>
+     data-images='["images/whirlpool/1.jpg","images/whirlpool/2.jpg","images/whirlpool/3.jpg"]'>
   <button class="s-btn s-prev" aria-label="Previous">←</button>
   <button class="s-btn s-next" aria-label="Next">→</button>
   <div class="s-count"></div>
 </div>
+
 
             </div>
           </div>
@@ -538,3 +534,62 @@
 </script>
 </body>
 </html>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // --- Slideshow wiring (robust parser + logs) ---
+  function parseImagesAttr(el) {
+    // Prefer valid JSON in data-images='["a","b"]'
+    let raw = el.getAttribute('data-images') || '';
+    if (!raw) return [];
+    try {
+      return JSON.parse(raw);
+    } catch (e) {
+      // Fallback: accept comma-separated list without JSON
+      // e.g., data-images="images/a.jpg, images/b.jpg"
+      console.warn('JSON parse failed for data-images, falling back to CSV:', raw, e);
+      return raw.split(',').map(s => s.trim()).filter(Boolean);
+    }
+  }
+
+  document.querySelectorAll('.slider').forEach(slider => {
+    const list = parseImagesAttr(slider);
+    if (!Array.isArray(list) || list.length === 0) {
+      console.error('Slider has no images:', slider);
+      return;
+    }
+
+    // Create <img> element if missing
+    let img = slider.querySelector('img');
+    if (!img) {
+      img = document.createElement('img');
+      slider.prepend(img);
+    }
+
+    const count = slider.querySelector('.s-count');
+    const prev = slider.querySelector('.s-prev');
+    const next = slider.querySelector('.s-next');
+
+    let i = 0;
+    function render() {
+      img.src = list[i];
+      if (count) count.textContent = (i + 1) + ' / ' + list.length;
+    }
+    function nav(d) { i = (i + d + list.length) % list.length; render(); }
+
+    prev && prev.addEventListener('click', (e) => { e.stopPropagation(); nav(-1); });
+    next && next.addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
+
+    // Swipe
+    let sx = null;
+    slider.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', (e) => {
+      if (sx == null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) nav(dx < 0 ? 1 : -1);
+      sx = null;
+    }, { passive: true });
+
+    render();
+  });
+});
+</script>
