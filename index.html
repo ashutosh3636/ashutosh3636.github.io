@@ -23,6 +23,31 @@
     const { useState, useEffect } = React;
 
     // ---- Data ----
+      {/* About Me */}
+      <section id="about" className="p-10 scroll-mt-24">
+        <h2 className="text-3xl font-semibold mb-4 text-white">About Me</h2>
+        <p className="text-gray-300 max-w-3xl">
+          I am a final-year Mechanical Engineering student with strong interests in product design,
+          robotics, and manufacturing systems. I’ve gained experience through internships and
+          projects that blend mechanical design, digital twin simulations, and practical prototyping.
+          My focus is on creating reliable, innovative, and manufacturable designs.
+        </p>
+      </section>
+
+      {/* Education */}
+      <section id="education" className="p-10 bg-gray-950 scroll-mt-24">
+        <h2 className="text-3xl font-semibold mb-6 text-white">Education</h2>
+        <div className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 mb-4">
+          <h3 className="text-xl font-bold">VIT Vellore</h3>
+          <p className="text-gray-400 text-sm">B.Tech in Mechanical Engineering | 2021 – 2025</p>
+          <ul className="list-disc list-inside text-gray-200 mt-3 space-y-1">
+            <li>Specialization in Product Design & Robotics.</li>
+            <li>Worked on projects like Digital Twin of UR5, Smart Steam Trap, 3D Printed Drone.</li>
+            <li>Leadership in international competitions and multiple awards.</li>
+          </ul>
+        </div>
+      </section>
+
     const experiences = [
       {
         id: "whirlpool",
