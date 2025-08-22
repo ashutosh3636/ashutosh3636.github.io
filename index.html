@@ -16,6 +16,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#awards" class="nav-link">Awards</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -31,10 +32,10 @@
                 <div class="hero-card">
                     <h3>Education</h3>
                     <p><strong>B.Tech Mechanical Engineering</strong></p>
-                    <p>VIT Vellore (2021-2025)</p>
-                   
+                    <p>VIT Vellore (2020-2024)</p>
+                    <p>CGPA: 8.5</p>
                 </div>
-                <div class="hero-card">
+                <div class="hero-card" id="about">
                     <h3>About Me</h3>
                     <p>Passionate mechanical engineer specializing in robotics, UAV design, and product development. Experienced in CAD modeling, simulation, and manufacturing processes with a strong track record in international competitions and industry internships.</p>
                 </div>
@@ -52,26 +53,37 @@
                     <div class="timeline-content">
                         <div class="timeline-header" onclick="toggleExperience('exp1')">
                             <h3>Product Design Intern</h3>
-                            <span class="timeline-period">Jan 2025 - July 2025</span>
+                            <span class="timeline-period">Jan 2025 - Present</span>
                         </div>
                         <div class="timeline-company">Whirlpool Corporation, Pune</div>
                         <div id="exp1" class="timeline-details">
-                            <div class="experience-images">
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <img src="images/whirlpool_logo.png" alt="Whirlpool Logo">
-
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="exp1-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">Whirlpool Company Logo</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Washing Machine Dispenser CAD</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">PCB Enclosure Design</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">FMEA Analysis Report</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Team Meeting Photo</div>
                                     </div>
                                 </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Project Work</span>
-                                    </div>
-                                </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Results</span>
-                                    </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('exp1-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('exp1-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('exp1-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('exp1-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('exp1-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('exp1-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('exp1-slideshow', 5)"></span>
                                 </div>
                             </div>
                             <ul>
@@ -84,6 +96,47 @@
                                 <span class="tech-tag">Windchill PLM</span>
                                 <span class="tech-tag">FMEA</span>
                                 <span class="tech-tag">GD&T</span>
+                            </div>
+                            
+                            <!-- Nested Collapsible Section -->
+                            <div class="nested-section">
+                                <div class="nested-header" onclick="toggleNestedSection('exp1-nested')">
+                                    <span class="nested-icon">+</span>
+                                    <h4 class="nested-title">Key Projects & Achievements</h4>
+                                </div>
+                                <div id="exp1-nested" class="nested-details">
+                                    <div class="nested-content">
+                                        <div class="nested-subsection">
+                                            <h5>Major Accomplishments</h5>
+                                            <ul>
+                                                <li>Led redesign of premium washing machine dispenser resulting in 15% cost reduction</li>
+                                                <li>Developed innovative PCB thermal management solution improving reliability by 25%</li>
+                                                <li>Conducted comprehensive FMEA analysis identifying 12 critical failure modes</li>
+                                                <li>Collaborated with cross-functional teams including electrical, manufacturing, and quality</li>
+                                                <li>Implemented DFM principles reducing manufacturing complexity by 20%</li>
+                                                <li>Created detailed technical documentation and assembly instructions</li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Key Metrics</h5>
+                                            <div class="metrics-grid">
+                                                <div class="metric-item">15% cost reduction in dispenser design</div>
+                                                <div class="metric-item">25% improvement in PCB reliability</div>
+                                                <div class="metric-item">20% reduction in manufacturing complexity</div>
+                                                <div class="metric-item">12 critical failure modes identified and mitigated</div>
+                                            </div>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Skills Developed</h5>
+                                            <div class="skills-grid">
+                                                <span class="skill-tag">Advanced Creo Parametric modeling techniques</span>
+                                                <span class="skill-tag">Thermal analysis and management</span>
+                                                <span class="skill-tag">FMEA methodology and risk assessment</span>
+                                                <span class="skill-tag">Cross-functional project management</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -98,21 +151,33 @@
                         </div>
                         <div class="timeline-company">Orangewood Labs, San Francisco</div>
                         <div id="exp2" class="timeline-details">
-                            <div class="experience-images">
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Company Logo</span>
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="exp2-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">Orangewood Labs Office</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Planetary Gearbox CAD Model</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">FEA Stress Analysis</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">3D Printed Prototype</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Assembly Process</div>
                                     </div>
                                 </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Project Work</span>
-                                    </div>
-                                </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Results</span>
-                                    </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('exp2-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('exp2-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('exp2-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('exp2-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('exp2-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('exp2-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('exp2-slideshow', 5)"></span>
                                 </div>
                             </div>
                             <ul>
@@ -124,6 +189,47 @@
                                 <span class="tech-tag">SolidWorks</span>
                                 <span class="tech-tag">ANSYS FEA</span>
                                 <span class="tech-tag">3D Printing</span>
+                            </div>
+                            
+                            <!-- Nested Collapsible Section -->
+                            <div class="nested-section">
+                                <div class="nested-header" onclick="toggleNestedSection('exp2-nested')">
+                                    <span class="nested-icon">+</span>
+                                    <h4 class="nested-title">Research & Development Highlights</h4>
+                                </div>
+                                <div id="exp2-nested" class="nested-details">
+                                    <div class="nested-content">
+                                        <div class="nested-subsection">
+                                            <h5>Major Accomplishments</h5>
+                                            <ul>
+                                                <li>Designed high-precision dual-stage planetary gearbox with 100:1 reduction ratio</li>
+                                                <li>Performed comprehensive FEA analysis ensuring 200% safety factor</li>
+                                                <li>Developed rapid prototyping workflow using industrial 3D printers</li>
+                                                <li>Optimized gear tooth profiles for minimum backlash and maximum efficiency</li>
+                                                <li>Conducted extensive testing protocols validating design performance</li>
+                                                <li>Collaborated with robotics engineers on system integration</li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Key Metrics</h5>
+                                            <div class="metrics-grid">
+                                                <div class="metric-item">100:1 gear reduction ratio achieved</div>
+                                                <div class="metric-item">200% safety factor validated through FEA</div>
+                                                <div class="metric-item">10% assembly time reduction</div>
+                                                <div class="metric-item">95% printing success rate for prototypes</div>
+                                            </div>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Skills Developed</h5>
+                                            <div class="skills-grid">
+                                                <span class="skill-tag">Advanced gear design principles</span>
+                                                <span class="skill-tag">FEA simulation and validation</span>
+                                                <span class="skill-tag">Rapid prototyping techniques</span>
+                                                <span class="skill-tag">Robotics system integration</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,21 +244,33 @@
                         </div>
                         <div class="timeline-company">InsideFPV, Surat</div>
                         <div id="exp3" class="timeline-details">
-                            <div class="experience-images">
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Company Logo</span>
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="exp3-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">InsideFPV Workshop</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">UAV CAD Design</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Aerodynamic Flow Analysis</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Manufacturing Process</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Flight Testing</div>
                                     </div>
                                 </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Project Work</span>
-                                    </div>
-                                </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Results</span>
-                                    </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('exp3-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('exp3-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('exp3-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('exp3-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('exp3-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('exp3-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('exp3-slideshow', 5)"></span>
                                 </div>
                             </div>
                             <ul>
@@ -164,6 +282,47 @@
                                 <span class="tech-tag">Fusion 360</span>
                                 <span class="tech-tag">Aerodynamic Analysis</span>
                                 <span class="tech-tag">Manufacturing</span>
+                            </div>
+                            
+                            <!-- Nested Collapsible Section -->
+                            <div class="nested-section">
+                                <div class="nested-header" onclick="toggleNestedSection('exp3-nested')">
+                                    <span class="nested-icon">+</span>
+                                    <h4 class="nested-title">Innovation & Patent Development</h4>
+                                </div>
+                                <div id="exp3-nested" class="nested-details">
+                                    <div class="nested-content">
+                                        <div class="nested-subsection">
+                                            <h5>Major Accomplishments</h5>
+                                            <ul>
+                                                <li>Developed patent-pending modular UAV architecture for defense applications</li>
+                                                <li>Conducted CFD analysis optimizing aerodynamic efficiency by 18%</li>
+                                                <li>Designed lightweight carbon fiber frame reducing weight by 30%</li>
+                                                <li>Implemented modular payload bay system for mission versatility</li>
+                                                <li>Performed extensive flight testing validating design parameters</li>
+                                                <li>Created comprehensive technical documentation for patent application</li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Key Metrics</h5>
+                                            <div class="metrics-grid">
+                                                <div class="metric-item">18% improvement in aerodynamic efficiency</div>
+                                                <div class="metric-item">30% weight reduction achieved</div>
+                                                <div class="metric-item">52-minute maximum flight endurance</div>
+                                                <div class="metric-item">Patent application filed with IP office</div>
+                                            </div>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Skills Developed</h5>
+                                            <div class="skills-grid">
+                                                <span class="skill-tag">Aerodynamic design and CFD analysis</span>
+                                                <span class="skill-tag">Composite material engineering</span>
+                                                <span class="skill-tag">Patent application process</span>
+                                                <span class="skill-tag">Flight testing and validation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,21 +337,33 @@
                         </div>
                         <div class="timeline-company">Team RoverX, VIT Vellore</div>
                         <div id="exp4" class="timeline-details">
-                            <div class="experience-images">
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Company Logo</span>
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="exp4-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">Team RoverX Logo</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Mars Rover Prototype</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Suspension System Design</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">First Place Award Ceremony</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Team Photo with Trophy</div>
                                     </div>
                                 </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Project Work</span>
-                                    </div>
-                                </div>
-                                <div class="image-placeholder">
-                                    <div class="image-content">
-                                        <span>Results</span>
-                                    </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('exp4-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('exp4-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('exp4-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('exp4-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('exp4-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('exp4-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('exp4-slideshow', 5)"></span>
                                 </div>
                             </div>
                             <ul>
@@ -204,6 +375,47 @@
                                 <span class="tech-tag">SolidWorks</span>
                                 <span class="tech-tag">Kinematics Analysis</span>
                                 <span class="tech-tag">System Integration</span>
+                            </div>
+                            
+                            <!-- Nested Collapsible Section -->
+                            <div class="nested-section">
+                                <div class="nested-header" onclick="toggleNestedSection('exp4-nested')">
+                                    <span class="nested-icon">+</span>
+                                    <h4 class="nested-title">Competition Achievements & Leadership</h4>
+                                </div>
+                                <div id="exp4-nested" class="nested-details">
+                                    <div class="nested-content">
+                                        <div class="nested-subsection">
+                                            <h5>Major Accomplishments</h5>
+                                            <ul>
+                                                <li>Led mechanical design team of 8 members across two international competitions</li>
+                                                <li>Designed innovative rocker-bogie suspension system for Mars terrain navigation</li>
+                                                <li>Developed 6-DOF robotic arm with precise sample collection capability</li>
+                                                <li>Implemented advanced kinematics analysis for optimal mobility performance</li>
+                                                <li>Coordinated with electrical and software teams for system integration</li>
+                                                <li>Mentored junior team members and established design standards</li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Key Metrics</h5>
+                                            <div class="metrics-grid">
+                                                <div class="metric-item">1st Position Worldwide - IRDC 2022</div>
+                                                <div class="metric-item">2nd Position Worldwide - IRC 2023</div>
+                                                <div class="metric-item">8-member mechanical team led successfully</div>
+                                                <div class="metric-item">6-DOF robotic arm with 95% accuracy</div>
+                                            </div>
+                                        </div>
+                                        <div class="nested-subsection">
+                                            <h5>Skills Developed</h5>
+                                            <div class="skills-grid">
+                                                <span class="skill-tag">Team leadership and project management</span>
+                                                <span class="skill-tag">Complex mechanism design</span>
+                                                <span class="skill-tag">Kinematics and dynamics analysis</span>
+                                                <span class="skill-tag">International competition experience</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -218,189 +430,316 @@
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('project1')">
-                        <h3>Digital Twin of 6DOF Collaborative Robot</h3>
-                        <span class="expand-btn">Click to expand</span>
+                    <div class="project-image">
+                        <div class="image-placeholder">UR5 Robot Digital Twin</div>
                     </div>
-                    <p class="project-short">Digital twin simulation of UR5 robot with motion planning and control optimization.</p>
-                    <div id="project1" class="project-details">
-                        <div class="project-images">
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 1</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Digital Twin of 6DOF Collaborative Robot</h3>
+                        <p class="project-short">Digital twin simulation of UR5 robot with motion planning and control optimization using MATLAB Simulink.</p>
+                        <button class="expand-btn" onclick="toggleProject('project1')">Click to Expand</button>
+                        <div id="project1" class="project-details">
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="project1-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">UR5 Robot Physical Model</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Digital Twin Interface</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Kinematic Analysis Graph</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Control System Diagram</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Performance Results Chart</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Project Presentation</div>
+                                    </div>
+                                </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('project1-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('project1-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('project1-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('project1-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('project1-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('project1-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('project1-slideshow', 5)"></span>
+                                    <span class="dot" onclick="currentSlide('project1-slideshow', 6)"></span>
                                 </div>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 2</span>
-                                </div>
+                            <p>Developed comprehensive digital twin of UR5 collaborative robot using MATLAB Simulink. Implemented trapezoidal velocity profiles and achieved 40% reduction in joint stress. Simulation accuracy within 1.5% of physical system performance.</p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>40% reduction in joint stress</li>
+                                    <li>1.5% simulation accuracy</li>
+                                    <li>Real-time operation at 1kHz</li>
+                                </ul>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 3</span>
-                                </div>
+                            <div class="tech-tags">
+                                <span class="tech-tag">MATLAB</span>
+                                <span class="tech-tag">Simulink</span>
+                                <span class="tech-tag">Robotics Toolbox</span>
+                                <span class="tech-tag">Control Systems</span>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 4</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p>Developed comprehensive digital twin of UR5 collaborative robot using MATLAB Simulink. Implemented trapezoidal velocity profiles and achieved 40% reduction in joint stress. Simulation accuracy within 1.5% of physical system performance.</p>
-                        <div class="achievements">
-                            <h4>Key Achievements:</h4>
-                            <ul>
-                                <li>40% reduction in joint stress</li>
-                                <li>1.5% simulation accuracy</li>
-                                <li>Real-time operation at 1kHz</li>
-                            </ul>
-                        </div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">MATLAB</span>
-                            <span class="tech-tag">Simulink</span>
-                            <span class="tech-tag">Robotics Toolbox</span>
-                            <span class="tech-tag">Control Systems</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('project2')">
-                        <h3>Defense Drone Design</h3>
-                        <span class="expand-btn">Click to expand</span>
-                    </div>
-                    <p class="project-short">Lightweight modular UAV optimized for surveillance with patent-pending design.</p>
-                    <div id="project2" class="project-details">
-                        <div class="project-images">
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 1</span>
-                                </div>
-                            </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 2</span>
-                                </div>
-                            </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 3</span>
-                                </div>
-                            </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 4</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p>Designed military-grade UAV from concept to manufacturing. Achieved 35% weight reduction and 52-minute flight endurance. Patent-pending modular payload integration system for defense applications.</p>
-                        <div class="achievements">
-                            <h4>Key Achievements:</h4>
-                            <ul>
-                                <li>35% weight reduction</li>
-                                <li>52-minute flight endurance</li>
-                                <li>Patent pending status</li>
-                            </ul>
-                        </div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Fusion 360</span>
-                            <span class="tech-tag">Aerodynamic Analysis</span>
-                            <span class="tech-tag">Carbon Fiber</span>
-                            <span class="tech-tag">Manufacturing</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('project3')">
-                        <h3>Smart Steam Trap System</h3>
-                        <span class="expand-btn">Click to expand</span>
+                    <div class="project-image">
+                        <div class="image-placeholder">Military UAV Prototype</div>
                     </div>
-                    <p class="project-short">Automated industrial steam trap with IoT monitoring and predictive maintenance.</p>
-                    <div id="project3" class="project-details">
-                        <div class="project-images">
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 1</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Defense Drone Design</h3>
+                        <p class="project-short">Lightweight modular UAV optimized for surveillance with patent-pending design achieving 35% weight reduction.</p>
+                        <button class="expand-btn" onclick="toggleProject('project2')">Click to Expand</button>
+                        <div id="project2" class="project-details">
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="project2-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">Defense Drone CAD Model</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Aerodynamic Flow Simulation</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Carbon Fiber Manufacturing</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Flight Endurance Test</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Patent Application Document</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Military Exhibition Display</div>
+                                    </div>
+                                </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('project2-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('project2-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('project2-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('project2-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('project2-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('project2-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('project2-slideshow', 5)"></span>
+                                    <span class="dot" onclick="currentSlide('project2-slideshow', 6)"></span>
                                 </div>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 2</span>
-                                </div>
+                            <p>Designed military-grade UAV from concept to manufacturing. Achieved 35% weight reduction and 52-minute flight endurance. Patent-pending modular payload integration system for defense applications.</p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>35% weight reduction</li>
+                                    <li>52-minute flight endurance</li>
+                                    <li>Patent pending status</li>
+                                </ul>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 3</span>
-                                </div>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Fusion 360</span>
+                                <span class="tech-tag">Aerodynamic Analysis</span>
+                                <span class="tech-tag">Carbon Fiber</span>
+                                <span class="tech-tag">Manufacturing</span>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 4</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p>Developed intelligent steam trap system using capacitive sensing and solenoid control. Achieved 15% efficiency improvement and 60% reduction in maintenance requirements through predictive analytics.</p>
-                        <div class="achievements">
-                            <h4>Key Achievements:</h4>
-                            <ul>
-                                <li>15% efficiency improvement</li>
-                                <li>60% maintenance reduction</li>
-                                <li>ROI payback in 8 months</li>
-                            </ul>
-                        </div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Capacitive Sensing</span>
-                            <span class="tech-tag">IoT</span>
-                            <span class="tech-tag">Industrial Controls</span>
-                            <span class="tech-tag">Thermal Systems</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header" onclick="toggleProject('project4')">
-                        <h3>3D Printed Modular Drone Frame</h3>
-                        <span class="expand-btn">Click to expand</span>
+                    <div class="project-image">
+                        <div class="image-placeholder">IoT Steam Trap Control</div>
                     </div>
-                    <p class="project-short">Cost-effective quadrotor frame using topology optimization and additive manufacturing.</p>
-                    <div id="project4" class="project-details">
-                        <div class="project-images">
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 1</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Smart Steam Trap System</h3>
+                        <p class="project-short">Automated industrial steam trap with IoT monitoring achieving 15% efficiency improvement and predictive maintenance.</p>
+                        <button class="expand-btn" onclick="toggleProject('project3')">Click to Expand</button>
+                        <div id="project3" class="project-details">
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="project3-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">Steam Trap System Overview</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Capacitive Sensor Assembly</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">IoT Control Interface</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Performance Analytics Dashboard</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Industrial Installation</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Efficiency Improvement Graph</div>
+                                    </div>
+                                </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('project3-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('project3-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('project3-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('project3-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('project3-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('project3-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('project3-slideshow', 5)"></span>
+                                    <span class="dot" onclick="currentSlide('project3-slideshow', 6)"></span>
                                 </div>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 2</span>
-                                </div>
+                            <p>Developed intelligent steam trap system using capacitive sensing and solenoid control. Achieved 15% efficiency improvement and 60% reduction in maintenance requirements through predictive analytics.</p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>15% efficiency improvement</li>
+                                    <li>60% maintenance reduction</li>
+                                    <li>ROI payback in 8 months</li>
+                                </ul>
                             </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 3</span>
-                                </div>
-                            </div>
-                            <div class="image-placeholder">
-                                <div class="image-content">
-                                    <span>Image 4</span>
-                                </div>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Capacitive Sensing</span>
+                                <span class="tech-tag">IoT</span>
+                                <span class="tech-tag">Industrial Controls</span>
+                                <span class="tech-tag">Thermal Systems</span>
                             </div>
                         </div>
-                        <p>Designed lightweight drone frame using FDM printing with topology optimization. Won Runner-up in Additive Manufacturing Hackathon. Achieved 40% cost reduction compared to carbon fiber alternatives.</p>
-                        <div class="achievements">
-                            <h4>Key Achievements:</h4>
-                            <ul>
-                                <li>Runner-up in hackathon</li>
-                                <li>40% cost reduction</li>
-                                <li>4:1 payload ratio</li>
-                            </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="image-placeholder">Topology Optimized Frame</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">3D Printed Modular Drone Frame</h3>
+                        <p class="project-short">Cost-effective quadrotor frame using topology optimization and additive manufacturing with 40% cost reduction.</p>
+                        <button class="expand-btn" onclick="toggleProject('project4')">Click to Expand</button>
+                        <div id="project4" class="project-details">
+                            <!-- Slideshow Container -->
+                            <div class="slideshow-container">
+                                <div class="slideshow" data-slideshow="project4-slideshow">
+                                    <div class="slide active">
+                                        <div class="slide-image">Topology Optimized Design</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">3D Printing Process</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Material Testing Setup</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Finished Drone Frame</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Hackathon Award Ceremony</div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-image">Cost Analysis Chart</div>
+                                    </div>
+                                </div>
+                                <button class="slide-btn prev-btn" onclick="changeSlide('project4-slideshow', -1)">❮</button>
+                                <button class="slide-btn next-btn" onclick="changeSlide('project4-slideshow', 1)">❯</button>
+                                <div class="slide-dots">
+                                    <span class="dot active" onclick="currentSlide('project4-slideshow', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('project4-slideshow', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('project4-slideshow', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('project4-slideshow', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('project4-slideshow', 5)"></span>
+                                    <span class="dot" onclick="currentSlide('project4-slideshow', 6)"></span>
+                                </div>
+                            </div>
+                            <p>Designed lightweight drone frame using FDM printing with topology optimization. Won Runner-up in Additive Manufacturing Hackathon. Achieved 40% cost reduction compared to carbon fiber alternatives.</p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>Runner-up in hackathon</li>
+                                    <li>40% cost reduction</li>
+                                    <li>4:1 payload ratio</li>
+                                </ul>
+                            </div>
+                            <div class="tech-tags">
+                                <span class="tech-tag">FDM 3D Printing</span>
+                                <span class="tech-tag">Topology Optimization</span>
+                                <span class="tech-tag">ANSYS FEA</span>
+                                <span class="tech-tag">Material Testing</span>
+                            </div>
                         </div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">FDM 3D Printing</span>
-                            <span class="tech-tag">Topology Optimization</span>
-                            <span class="tech-tag">ANSYS FEA</span>
-                            <span class="tech-tag">Material Testing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards and Achievements Section -->
+    <section id="awards" class="awards">
+        <div class="section-container">
+            <h2 class="section-title">Awards and Achievements</h2>
+            <div class="awards-grid">
+                <div class="award-category">
+                    <div class="category-header">
+                        <div class="category-icon">🌍</div>
+                        <h3>International Competitions</h3>
+                    </div>
+                    <div class="award-items">
+                        <div class="award-item">
+                            <div class="award-title">First Position Worldwide</div>
+                            <div class="award-event">International Rover Design Challenge 2022</div>
+                            <div class="award-description">Led mechanical design team to first place in global Mars rover competition</div>
+                            <div class="award-year">2022</div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-title">Second Position Worldwide</div>
+                            <div class="award-event">International Rover Challenge 2023</div>
+                            <div class="award-description">Achieved second place globally in advanced rover navigation challenge</div>
+                            <div class="award-year">2023</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-category">
+                    <div class="category-header">
+                        <div class="category-icon">💡</div>
+                        <h3>Innovation & Patents</h3>
+                    </div>
+                    <div class="award-items">
+                        <div class="award-item">
+                            <div class="award-title">Patent Pending</div>
+                            <div class="award-event">Defense Drone Design</div>
+                            <div class="award-description">Innovative modular UAV design for defense applications under patent review</div>
+                            <div class="award-year">2023</div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-title">Runner-up</div>
+                            <div class="award-event">Additive Manufacturing Hackathon</div>
+                            <div class="award-description">Second place for innovative 3D printed drone frame design</div>
+                            <div class="award-year">2023</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-category">
+                    <div class="category-header">
+                        <div class="category-icon">🎓</div>
+                        <h3>Academic Excellence</h3>
+                    </div>
+                    <div class="award-items">
+                        <div class="award-item">
+                            <div class="award-title">Special Achiever Award</div>
+                            <div class="award-event">VIT Vellore</div>
+                            <div class="award-description">Recognition for outstanding academic and project performance</div>
+                            <div class="award-year">2024</div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-title">Dean's List</div>
+                            <div class="award-event">VIT Vellore (2021-2024)</div>
+                            <div class="award-description">Consistent academic excellence with 8.5 CGPA</div>
+                            <div class="award-year">2021-2024</div>
                         </div>
                     </div>
                 </div>
