@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,11 +21,11 @@
     margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
     background:var(--bg); color:var(--text);
   }
-  a{color:var(--brand)}
+  a{color:var(--brand); text-decoration:none}
   .container{max-width:1100px; margin:0 auto; padding:0 20px}
   .btn{
     display:inline-block; padding:10px 16px; border-radius:12px; border:1px solid var(--muted);
-    background:#0b1220; color:var(--text); text-decoration:none; cursor:pointer;
+    background:#0b1220; color:var(--text); cursor:pointer;
   }
   .btn.primary{background:var(--brand); border-color:transparent}
   .btn:hover{filter:brightness(1.06)}
@@ -71,35 +72,21 @@
   .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
   @media (max-width:780px){ .grid.two,.grid.three{grid-template-columns:1fr} }
 
-  /* Ratio boxes for uniform covers (16:9) and thumbs (4:3) */
-  .ratio{position:relative; width:100%; overflow:hidden; border-radius:14px; border:1px solid var(--muted); background:#000}
-  .r16x9{padding-bottom:56.25%}
-  .r4x3{padding-bottom:75%}
-  .ratio > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  /* Ratio covers & thumbs */
+  .ratio{position:relative;width:100%;overflow:hidden;border-radius:14px;border:1px solid var(--muted);background:#000}
+  .r16x9{padding-bottom:56.25%} /* cover */
+  .r4x3{padding-bottom:75%}     /* thumbs if you use them */
+  .ratio>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
-  /* Image box that keeps same height and fits any image (no crop) */
-  .image-box{position:relative; width:100%; height:300px; background:#000; border:1px solid var(--muted); border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden}
-  .image-box > img{max-width:100%; max-height:100%; object-fit:contain}
+  /* Pills */
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#0a0f1d;border:1px solid var(--muted);font-size:12px;color:#cbd5e1}
 
-  /* Auto-fit (full-width, variable height) */
-  .auto-fit{display:block; width:100%; background:#000; border:1px solid var(--muted); border-radius:14px; overflow:hidden}
-  .auto-fit img{display:block; width:100%; height:auto; object-fit:contain}
-
-  /* Lists */
-  ul.clean{list-style:disc; padding-left:18px; margin:8px 0}
-  .muted{color:var(--text-dim)}
-  .pill{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:#0a0f1d; border:1px solid var(--muted); font-size:12px; color:#cbd5e1}
-
-  /* Lightbox */
-  .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:100}
-  .lightbox.open{display:flex}
-  .lb-inner{position:relative; width:min(96vw,1100px)}
-  .lb-img{width:100%; height:75vh; background:#000; object-fit:contain; border-radius:14px}
-  .lb-btn{position:absolute; top:8px; background:rgba(255,255,255,.12); border:0; color:#fff; padding:8px 10px; border-radius:10px; cursor:pointer}
-  .lb-close{right:8px}
-  .lb-prev{left:8px; top:50%; transform:translateY(-50%)}
-  .lb-next{right:8px; top:50%; transform:translateY(-50%)}
-  .lb-count{position:absolute; bottom:10px; left:0; right:0; text-align:center; color:#e2e8f0}
+  /* Slideshow (per-tile, mixed ratios handled with contain) */
+  .xslider{position:relative;width:100%;height:320px;background:#000;border:1px solid #374151;border-radius:14px;overflow:hidden;margin-top:12px}
+  .xslider img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .xs-btn{position:absolute;top:50%;transform:translateY(-50%);border:0;cursor:pointer;background:rgba(255,255,255,.12);color:#fff;padding:8px 10px;border-radius:10px}
+  .xs-prev{left:8px}.xs-next{right:8px}
+  .xs-count{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#e2e8f0;font-size:14px}
 
   footer{border-top:1px solid #1f2937; padding:26px 0; color:#9ca3af; text-align:center}
 </style>
@@ -144,7 +131,7 @@
           <div>
             <h3 style="margin:0 0 4px">VIT Vellore</h3>
             <div class="muted">B.Tech in Mechanical Engineering • 2021 – 2025</div>
-            <ul class="clean">
+            <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
               <li>Focus: Product Design, Robotics, and Digital Twin.</li>
               <li>Notable work: Digital Twin of UR5, Smart Steam Trap, 3D-Printed Drone.</li>
               <li>Awards: IRDC 2022 (1st), IRC 2023 (2nd), VIT Special Achiever.</li>
@@ -155,116 +142,106 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE (kept as before; vertical timeline; expand) -->
-
+  <!-- EXPERIENCE: vertical timeline, inline expand; includes locations -->
   <section id="experience">
-    
     <div class="container">
       <h2>Experience</h2>
-
       <div class="vline-wrap">
         <div class="vline"></div>
 
+        <!-- Whirlpool -->
         <div class="tl-item">
           <span class="node"></span>
           <div class="tile">
             <button class="tile-toggle" aria-expanded="false">
               <h3 style="margin:0 0 4px">Whirlpool Corporation</h3>
-              <div class="muted">Product Design Intern <strong> Pune, India </strong> • Jan 2025 - July 2025</div>
+              <div class="muted">Product Design Intern • 2025 • <strong>Pune, India</strong></div>
               <p class="muted" style="margin:8px 0 0">
                 Worked on laundry & dispenser systems. 3 patents + 1 trade secret (under review).
               </p>
             </button>
             <div class="tile-content">
-              <ul class="clean">
+              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
                 <li>Design iterations for dispenser sub-assemblies (reliability & manufacturability).</li>
                 <li>DFMEA and tolerance studies to de-risk before EVT.</li>
                 <li>Supplier collaboration for DFM & cost-down proposals.</li>
               </ul>
-
-              <!-- LOGO/IMAGE: fixed-height box fits any dimension (no crop) -->
-              <!-- Slideshow (any image sizes) -->
-<div class="slider"
-     data-images='["images/whirlpool_logo.png","images/rover.png","images/whirlpool/3.jpg"]'>
-  <button class="s-btn s-prev" aria-label="Previous">←</button>
-  <button class="s-btn s-next" aria-label="Next">→</button>
-  <div class="s-count"></div>
-</div>
-
-
+              <!-- Slideshow: add/remove files as needed (any ratio works) -->
+              <div class="xslider" data-images='["images/whirlpool/1.JPG","images/whirlpool/2.JPG","images/whirlpool/3.JPG","images/whirlpool/logo.png"]'>
+                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+                <button class="xs-btn xs-next" aria-label="Next">→</button>
+                <div class="xs-count"></div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- Orangewood -->
         <div class="tl-item">
           <span class="node"></span>
           <div class="tile">
             <button class="tile-toggle" aria-expanded="false">
               <h3 style="margin:0 0 4px">Orangewood Labs (YC)</h3>
-              <div class="muted">Robotics Intern • 2019–2021, 2021–2025</div>
-              <p class="muted" style="margin:8px 0 0">
-                Digital Twin of UR5 for kinematics/dynamics, trajectory planning, computed-torque control.
-              </p>
+              <div class="muted">Robotics Intern • 2019–2021, 2021–2025 • <strong>San Francisco, USA (remote)</strong></div>
+              <p class="muted" style="margin:8px 0 0">Digital Twin of UR5 for kinematics/dynamics, trajectory planning, computed-torque control.</p>
             </button>
             <div class="tile-content">
-              <ul class="clean">
+              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
                 <li>Trapezoidal profiles; IK & Jacobian controllers.</li>
                 <li>Friction & energy modeling; validated on UR5 logs.</li>
                 <li>Waypoint → joint trajectory tooling.</li>
               </ul>
-              <!-- Uniform 4:3 thumbs (any image dims will look consistent) -->
-              <div class="grid three" data-gallery>
-                <div class="ratio r4x3"><img src="images/orangewood/1.jpg" alt=""></div>
-                <div class="ratio r4x3"><img src="images/orangewood/2.jpg" alt=""></div>
-                <div class="ratio r4x3"><img src="images/projects/dtwin/1.jpg" alt=""></div>
+              <div class="xslider" data-images='["images/orangewood/arm.JPG","images/orangewood/sun_planet1.JPG","images/orangewood/3d_protype.JPG"]'>
+                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+                <button class="xs-btn xs-next" aria-label="Next">→</button>
+                <div class="xs-count"></div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- InsideFPV -->
         <div class="tl-item">
           <span class="node"></span>
           <div class="tile">
             <button class="tile-toggle" aria-expanded="false">
               <h3 style="margin:0 0 4px">InsideFPV</h3>
-              <div class="muted">Product Design Intern • May–Nov 2023</div>
+              <div class="muted">Product Design Intern • May–Nov 2023 • <strong>Surat, India</strong></div>
               <p class="muted" style="margin:8px 0 0">Defense drone design • CAD → AM → testing • Kaizen iterations.</p>
             </button>
             <div class="tile-content">
-              <ul class="clean">
+              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
                 <li>Topology-optimized arms, weight-to-stiffness lattices.</li>
                 <li>Iterated cooling, arm quick-release; field-tested.</li>
               </ul>
-              <div class="grid three" data-gallery>
-                <div class="ratio r4x3"><img src="images/projects/drone/1.jpg" alt=""></div>
-                <div class="ratio r4x3"><img src="images/projects/drone/2.jpg" alt=""></div>
-                <div class="ratio r4x3"><img src="images/projects/drone/3.jpg" alt=""></div>
+              <div class="xslider" data-images='["images/insideFPV/drone2.JPG","images/insideFPV/droone1.JPG","images/insideFPV/camera.JPG"]'>
+                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+                <button class="xs-btn xs-next" aria-label="Next">→</button>
+                <div class="xs-count"></div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- RoverX -->
         <div class="tl-item">
           <span class="node"></span>
           <div class="tile">
             <button class="tile-toggle" aria-expanded="false">
               <h3 style="margin:0 0 4px">Team RoverX – VIT Vellore</h3>
-              <div class="muted">Mechanical Core Member • 2022–2023</div>
+              <div class="muted">Mechanical Core Member • 2022–2023 • <strong>Vellore, India</strong></div>
               <p class="muted" style="margin:8px 0 0">Rover mechanisms, drivetrain, and integration for competitions.</p>
             </button>
             <div class="tile-content">
-              <ul class="clean">
+              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
                 <li>Rocker-bogie elements, wheel hubs for harsh terrain.</li>
                 <li>Optimized reductions & belt drives for torque/efficiency.</li>
               </ul>
-              <!-- Rover photo in uniform 4:3 thumbs + optional auto-fit full-width -->
-              <div class="grid three" data-gallery>
-                <div class="ratio r4x3"><img src="images/rover.png" alt="Rover"></div>
-                <div class="ratio r4x3"><img src="images/rover.jpg" alt="Rover alt"></div>
-                <div class="ratio r4x3"><img src="images/rover.jpg" alt="Rover alt 2"></div>
+              <div class="xslider" data-images='["images/roverx/1000021607.jpg","images/roverx/rover.jpg","images/roverx/PXL_20230327_220106027.jpg","images/roverx/1000020893.jpg","images/roverx/PXL_20221112_095711537.MP.jpg"]'>
+                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+                <button class="xs-btn xs-next" aria-label="Next">→</button>
+                <div class="xs-count"></div>
               </div>
-              <!-- If you want a full-width adaptive box for a hero shot, use this instead: -->
-              <!-- <div class="auto-fit" style="margin-top:12px"><img src="images/rover.jpg" alt="Rover full"></div> -->
             </div>
           </div>
         </div>
@@ -273,121 +250,129 @@
     </div>
   </section>
 
-  <!-- PROJECTS (back to after Experience; only image optimization applied) -->
+  <!-- PROJECTS (after experience; interactive tiles; each with slideshow + objective/desc/tech) -->
   <section id="projects" class="alt">
     <div class="container">
       <h2>Projects</h2>
 
       <div class="grid two">
+
+        <!-- Digital Twin -->
         <div class="tile">
           <button class="tile-toggle" aria-expanded="false">
-            <!-- Uniform 16:9 cover regardless of source image size -->
-            <div class="ratio r16x9"><img src="images/projects/dtwin/1.jpg" alt="Digital Twin cover"></div>
+            <div class="ratio r16x9"><img src="images/dgital twin/traj2.png" alt="Digital Twin of UR5 cover"></div>
             <h3 style="margin:14px 0 4px">Digital Twin of UR5 Robot</h3>
-            <div class="muted">Trajectory planning, IK, dynamics; energy efficiency assessment.</div>
+            <div class="muted"><strong>Objective:</strong> Model and validate a UR5 manipulator for safe motion planning and control.</div>
             <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">MATLAB</span><span class="pill">Simulink</span><span class="pill">Kinematics</span>
+              <span class="pill">MATLAB</span><span class="pill">Simulink</span><span class="pill">Kinematics</span><span class="pill">Dynamics</span>
             </div>
           </button>
           <div class="tile-content">
-            <ul class="clean">
-              <li>6-DOF rigid body tree, waypoint planner (Cartesian → joint space).</li>
-              <li>Computed-torque control with viscous/Coulomb friction modeling.</li>
-              <li>Compared simulation vs. physical UR5 logs for validation.</li>
-            </ul>
-            <!-- Uniform 4:3 thumbnails open in lightbox -->
-            <div class="grid three" data-gallery>
-              <div class="ratio r4x3"><img src="images/projects/dtwin/1.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/dtwin/2.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/dtwin/3.jpg" alt=""></div>
+            <p class="muted" style="margin:8px 0">Built kinematics and dynamics, trajectory planners, and computed-torque control; validated against logs.</p>
+            <div class="xslider" data-images='["images/dgital twin/traj2.png","images/dgital twin/ur5robo.png","images/dgital twin/IMG_9849.jpg","images/dgital twin/robot in action.png","images/dgital twin/IMG_6ECB64476769-1.jpeg","images/dgital twin/IMG_9798.JPG"]'>
+              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+              <button class="xs-btn xs-next" aria-label="Next">→</button>
+              <div class="xs-count"></div>
             </div>
           </div>
         </div>
 
+        <!-- Smart Steam Trap -->
         <div class="tile">
           <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/projects/steam/1.jpg" alt="Smart Steam Trap cover"></div>
+            <div class="ratio r16x9"><img src="images/smart steam trap/steamtrap.png" alt="Smart Steam Trap cover"></div>
             <h3 style="margin:14px 0 4px">Smart Steam Trap</h3>
-            <div class="muted">Industrial IoT controls; reduced steam loss vs mechanical trap.</div>
+            <div class="muted"><strong>Objective:</strong> Reduce energy loss by electronically separating steam and condensate.</div>
             <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">Industrial IoT</span><span class="pill">Controls</span>
+              <span class="pill">Industrial IoT</span><span class="pill">Controls</span><span class="pill">Sensors</span>
             </div>
           </button>
           <div class="tile-content">
-            <ul class="clean">
-              <li>Differential sensing + solenoid actuation with fail-safe bypass.</li>
-              <li>Bench tests confirm lower steam losses.</li>
-            </ul>
-            <div class="grid three" data-gallery>
-              <div class="ratio r4x3"><img src="images/projects/steam/1.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/steam/2.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/steam/1.jpg" alt=""></div>
+            <p class="muted" style="margin:8px 0">Designed sensor-actuated trap with fail-safe bypass; benchtop validation.</p>
+            <div class="xslider" data-images='["images/smart steam trap/steamtrap.png","images/smart steam trap/1.png","images/smart steam trap/2.png"]'>
+              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+              <button class="xs-btn xs-next" aria-label="Next">→</button>
+              <div class="xs-count"></div>
             </div>
           </div>
         </div>
 
+        <!-- 3D-Printed Drone -->
         <div class="tile">
           <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/projects/drone/1.jpg" alt="3D Printed Drone cover"></div>
+            <div class="ratio r16x9"><img src="images/3d printed drone/1.png" alt="3D-Printed Drone cover"></div>
             <h3 style="margin:14px 0 4px">3D-Printed Drone</h3>
-            <div class="muted">Lightweight AM drone; runner-up at AM Hackathon.</div>
+            <div class="muted"><strong>Objective:</strong> Lightweight drone optimized for stiffness-to-weight and rapid iteration.</div>
             <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">AM</span><span class="pill">Aero</span>
+              <span class="pill">Additive Mfg</span><span class="pill">CAD</span><span class="pill">Flight</span>
             </div>
           </button>
           <div class="tile-content">
-            <ul class="clean">
-              <li>Topology-optimized arms; vibration isolation for FC.</li>
-              <li>Rapid print-test-iterate loop (PLA-CF, PETG).</li>
-            </ul>
-            <div class="grid three" data-gallery>
-              <div class="ratio r4x3"><img src="images/projects/drone/1.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/drone/2.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/drone/3.jpg" alt=""></div>
+            <p class="muted" style="margin:8px 0">Topology-optimized arms, vibration isolation, AM-friendly design; hackathon runner-up.</p>
+            <div class="xslider" data-images='["images/3d printed drone/1.png","images/3d printed drone/2.png"]'>
+              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+              <button class="xs-btn xs-next" aria-label="Next">→</button>
+              <div class="xs-count"></div>
             </div>
           </div>
         </div>
 
+        <!-- Sun & Planet Gear -->
         <div class="tile">
           <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/projects/wheel/1.jpg" alt="Wheelbarrow FEA cover"></div>
+            <div class="ratio r16x9"><img src="images/Planetary Gear/planetarygear.png" alt="Sun & Planet Gear Design cover"></div>
+            <h3 style="margin:14px 0 4px">Sun & Planet Gear Design</h3>
+            <div class="muted"><strong>Objective:</strong> Design and analyze sun-planet mechanism for torque transmission.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">Gear Design</span><span class="pill">Kinematics</span><span class="pill">Analysis</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <p class="muted" style="margin:8px 0">Calculated ratios, contact stresses, and backlash targets; compared materials and lubrication.</p>
+            <div class="xslider" data-images='["images/Planetary Gear/planetarygear.png"]'>
+              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+              <button class="xs-btn xs-next" aria-label="Next">→</button>
+              <div class="xs-count"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Whirlpool Project (if you want it under projects too) -->
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <div class="ratio r16x9"><img src="images/whirlpool/1.JPG" alt="Whirlpool Dispenser Systems cover"></div>
+            <h3 style="margin:14px 0 4px">Whirlpool Dispenser Systems</h3>
+            <div class="muted"><strong>Objective:</strong> Improve reliability and manufacturability of dispenser subsystems.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">DFMEA</span><span class="pill">Creo</span><span class="pill">Manufacturing</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <p class="muted" style="margin:8px 0">DFMEA, tolerance studies, supplier DFM for cost and reliability; patent work in progress.</p>
+            <div class="xslider" data-images='["images/whirlpool/1.JPG","images/whirlpool/2.JPG","images/whirlpool/3.JPG"]'>
+              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+              <button class="xs-btn xs-next" aria-label="Next">→</button>
+              <div class="xs-count"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEA Wheelbarrow -->
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <div class="ratio r16x9"><img src="images/FEA analysis/1.jpg" alt="FEA of Wheelbarrow cover"></div>
             <h3 style="margin:14px 0 4px">FEA of Wheelbarrow</h3>
-            <div class="muted">Stress distribution & safety factor for load cases.</div>
+            <div class="muted"><strong>Objective:</strong> Assess stresses and safety factors under varied load cases.</div>
             <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
               <span class="pill">SolidWorks</span><span class="pill">FEA</span>
             </div>
           </button>
           <div class="tile-content">
-            <ul class="clean">
-              <li>Meshed frame & tray; realistic boundary conditions.</li>
-              <li>Identified hotspots; suggested ribs/material changes.</li>
-            </ul>
-            <div class="grid three" data-gallery>
-              <div class="ratio r4x3"><img src="images/projects/wheel/1.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/wheel/2.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/wheel/1.jpg" alt=""></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tile">
-          <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/projects/gear/1.jpg" alt="Sun & Planet Gear cover"></div>
-            <h3 style="margin:14px 0 4px">Sun & Planet Gear Design</h3>
-            <div class="muted">Torque & efficiency analysis; contact stresses and backlash.</div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">Gear Design</span><span class="pill">Kinematics</span>
-            </div>
-          </button>
-          <div class="tile-content">
-            <ul class="clean">
-              <li>Ratios, contact stress, backlash targets.</li>
-              <li>Efficiency vs. lubrication & material.</li>
-            </ul>
-            <div class="grid three" data-gallery>
-              <div class="ratio r4x3"><img src="images/projects/gear/1.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/gear/2.jpg" alt=""></div>
-              <div class="ratio r4x3"><img src="images/projects/gear/1.jpg" alt=""></div>
+            <p class="muted" style="margin:8px 0">Meshed components, applied realistic constraints, identified hotspots and reinforcements.</p>
+            <div class="xslider" data-images='["images/FEA analysis/1.jpg","images/FEA analysis/2.JPG"]'>
+              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
+              <button class="xs-btn xs-next" aria-label="Next">→</button>
+              <div class="xs-count"></div>
             </div>
           </div>
         </div>
@@ -432,8 +417,8 @@
         </form>
       </div>
       <p class="muted" style="font-size:12px;margin-top:8px">
-        Put files in <code>images/</code>. Covers use a uniform 16:9 box; thumbnails are 4:3; logos/photos inside details use the fixed
-        <code>.image-box</code> (no crop). Lightbox shows full image with <em>contain</em>.
+        Put files in <code>images/</code>. Covers are uniform 16:9; slideshows use <em>contain</em> to show full image (any ratio).
+        File paths are case-sensitive on GitHub Pages.
       </p>
     </div>
   </section>
@@ -443,17 +428,6 @@
 <footer>
   © 2025 Ashutosh Parmar • Portfolio
 </footer>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <div class="lb-inner">
-    <img class="lb-img" id="lbImg" alt="">
-    <button class="lb-btn lb-close" id="lbClose">✕</button>
-    <button class="lb-btn lb-prev" id="lbPrev">←</button>
-    <button class="lb-btn lb-next" id="lbNext">→</button>
-    <div class="lb-count" id="lbCount"></div>
-  </div>
-</div>
 
 <script>
   // Hide header on scroll down, show on scroll up
@@ -478,47 +452,44 @@
     });
   });
 
-  // Lightbox for any grid with data-gallery
-  (function(){
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lbImg');
-    const lbCount = document.getElementById('lbCount');
-    const prev = document.getElementById('lbPrev');
-    const next = document.getElementById('lbNext');
-    const close = document.getElementById('lbClose');
-
-    let currentList = [];
-    let idx = 0;
-
-    function open(list, i){
-      currentList = list; idx = i;
-      render(); lb.classList.add('open');
+  // Simple per-tile slideshow (supports JSON array or CSV)
+  document.addEventListener('DOMContentLoaded',function(){
+    function parseImages(el){
+      const raw=el.getAttribute('data-images')||'';
+      try{ return JSON.parse(raw); }
+      catch(e){ return raw.split(',').map(s=>s.trim()).filter(Boolean); }
     }
-    function render(){
-      lbImg.src = currentList[idx];
-      lbCount.textContent = (idx+1) + ' / ' + currentList.length;
-    }
-    function nav(d){ idx = (idx + d + currentList.length) % currentList.length; render(); }
+    document.querySelectorAll('.xslider').forEach(slider=>{
+      const list=parseImages(slider);
+      if(!list.length){ console.error('xslider: no images', slider); return; }
 
-    document.querySelectorAll('[data-gallery]').forEach(g => {
-      const imgs = Array.from(g.querySelectorAll('img'));
-      imgs.forEach((img, i) => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', () => open(imgs.map(n => n.src), i));
-      });
-    });
+      let img=slider.querySelector('img');
+      if(!img){ img=document.createElement('img'); slider.prepend(img); }
 
-    prev.onclick = () => nav(-1);
-    next.onclick = () => nav(1);
-    close.onclick = () => lb.classList.remove('open');
-    lb.addEventListener('click', (e)=>{ if(e.target === lb) lb.classList.remove('open'); });
-    document.addEventListener('keydown', (e)=>{
-      if(!lb.classList.contains('open')) return;
-      if(e.key === 'Escape') lb.classList.remove('open');
-      if(e.key === 'ArrowLeft') nav(-1);
-      if(e.key === 'ArrowRight') nav(1);
+      const prev=slider.querySelector('.xs-prev');
+      const next=slider.querySelector('.xs-next');
+      const count=slider.querySelector('.xs-count');
+
+      let i=0;
+      function render(){ img.src=list[i]; if(count) count.textContent=(i+1)+' / '+list.length; }
+      function nav(d){ i=(i+d+list.length)%list.length; render(); }
+
+      prev && prev.addEventListener('click', e=>{ e.stopPropagation(); nav(-1); });
+      next && next.addEventListener('click', e=>{ e.stopPropagation(); nav(1); });
+
+      // swipe
+      let sx=null;
+      slider.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; }, {passive:true});
+      slider.addEventListener('touchend', e=>{
+        if(sx==null) return;
+        const dx=e.changedTouches[0].clientX - sx;
+        if(Math.abs(dx)>40) nav(dx<0?1:-1);
+        sx=null;
+      }, {passive:true});
+
+      render();
     });
-  })();
+  });
 
   // Contact actions
   document.getElementById('quickEmail')?.addEventListener('click', () => {
@@ -536,62 +507,4 @@
 </script>
 </body>
 </html>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  // --- Slideshow wiring (robust parser + logs) ---
-  function parseImagesAttr(el) {
-    // Prefer valid JSON in data-images='["a","b"]'
-    let raw = el.getAttribute('data-images') || '';
-    if (!raw) return [];
-    try {
-      return JSON.parse(raw);
-    } catch (e) {
-      // Fallback: accept comma-separated list without JSON
-      // e.g., data-images="images/a.jpg, images/b.jpg"
-      console.warn('JSON parse failed for data-images, falling back to CSV:', raw, e);
-      return raw.split(',').map(s => s.trim()).filter(Boolean);
-    }
-  }
-
-  document.querySelectorAll('.slider').forEach(slider => {
-    const list = parseImagesAttr(slider);
-    if (!Array.isArray(list) || list.length === 0) {
-      console.error('Slider has no images:', slider);
-      return;
-    }
-
-    // Create <img> element if missing
-    let img = slider.querySelector('img');
-    if (!img) {
-      img = document.createElement('img');
-      slider.prepend(img);
-    }
-
-    const count = slider.querySelector('.s-count');
-    const prev = slider.querySelector('.s-prev');
-    const next = slider.querySelector('.s-next');
-
-    let i = 0;
-    function render() {
-      img.src = list[i];
-      if (count) count.textContent = (i + 1) + ' / ' + list.length;
-    }
-    function nav(d) { i = (i + d + list.length) % list.length; render(); }
-
-    prev && prev.addEventListener('click', (e) => { e.stopPropagation(); nav(-1); });
-    next && next.addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
-
-    // Swipe
-    let sx = null;
-    slider.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
-    slider.addEventListener('touchend', (e) => {
-      if (sx == null) return;
-      const dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 40) nav(dx < 0 ? 1 : -1);
-      sx = null;
-    }, { passive: true });
-
-    render();
-  });
-});
-</script>
+```
