@@ -4,49 +4,47 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ashutosh Parmar — Portfolio</title>
+
   <!-- Tailwind (no build step) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- React 18 + ReactDOM (UMD) -->
+
+  <!-- React 18 + ReactDOM -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <!-- Babel to compile JSX in-browser -->
+
+  <!-- Babel to compile JSX in the browser -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <style>
-    /* Optional: smooth scrolling */
     html { scroll-behavior: smooth; }
+    body { background: #0f172a; } /* slate-900 */
   </style>
 </head>
-<body class="bg-gray-900">
+<body>
   <div id="root"></div>
 
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // ---- Data ----
-      {/* About Me */}
-      <section id="about" className="p-10 scroll-mt-24">
-        <h2 className="text-3xl font-semibold mb-4 text-white">About Me</h2>
-        <p className="text-gray-300 max-w-3xl">
-          I am a final-year Mechanical Engineering student with strong interests in product design,
-          robotics, and manufacturing systems. I’ve gained experience through internships and
-          projects that blend mechanical design, digital twin simulations, and practical prototyping.
-          My focus is on creating reliable, innovative, and manufacturable designs.
-        </p>
-      </section>
+    // ---------- Data ----------
+    const aboutMe = {
+      intro:
+        "Final-year Mechanical Engineering student focused on product design, robotics, and manufacturing systems. I work across CAD/FEA, Digital Twin simulations (MATLAB/Simulink), and rapid prototyping to ship reliable, manufacturable designs."
+    };
 
-      {/* Education */}
-      <section id="education" className="p-10 bg-gray-950 scroll-mt-24">
-        <h2 className="text-3xl font-semibold mb-6 text-white">Education</h2>
-        <div className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 mb-4">
-          <h3 className="text-xl font-bold">VIT Vellore</h3>
-          <p className="text-gray-400 text-sm">B.Tech in Mechanical Engineering | 2021 – 2025</p>
-          <ul className="list-disc list-inside text-gray-200 mt-3 space-y-1">
-            <li>Specialization in Product Design & Robotics.</li>
-            <li>Worked on projects like Digital Twin of UR5, Smart Steam Trap, 3D Printed Drone.</li>
-            <li>Leadership in international competitions and multiple awards.</li>
-          </ul>
-        </div>
-      </section>
+    const education = [
+      {
+        id: "vit",
+        school: "VIT Vellore",
+        degree: "B.Tech in Mechanical Engineering",
+        period: "2021 - 2025",
+        details: [
+          "Focus: Product Design, Robotics, and Digital Twin.",
+          "Notable work: Digital Twin of UR5, Smart Steam Trap, 3D-Printed Drone.",
+          "Awards: IRDC 2022 (1st), IRC 2023 (2nd), VIT Special Achiever."
+        ]
+      }
+    ];
 
     const experiences = [
       {
@@ -57,62 +55,62 @@
         summary:
           "Worked on laundry & dispenser systems. Authored 3 patents and 1 trade secret (under review). Used CSM, thought maps, FMEA; tooling in Creo Parametric & Windchill.",
         bullets: [
-          "Led design iterations for dispenser sub-assemblies targeting reliability & manufacturability.",
+          "Led design iterations for dispenser sub-assemblies targeting reliability and manufacturability.",
           "Ran tolerance studies and DFMEA to de-risk failure modes before EVT.",
-          "Coordinated with suppliers for DFM feedback and cost-down proposals.",
+          "Coordinated with suppliers for DFM feedback and cost-down proposals."
         ],
         images: [
           "images/whirlpool/1.jpg",
           "images/whirlpool/2.jpg",
-          "images/whirlpool/3.jpg",
-        ],
+          "images/whirlpool/3.jpg"
+        ]
       },
       {
         id: "orangewood",
         company: "Orangewood Labs (YC)",
         role: "Robotics Intern",
-        period: "2019–2021, 2021–2025",
+        period: "2019-2021, 2021-2025",
         summary:
           "Built a Digital Twin of a UR5 for kinematics/dynamics, trajectory planning, and computed-torque control in MATLAB/Simulink.",
         bullets: [
           "Implemented trapezoidal velocity profiles; integrated IK and Jacobian-based controllers.",
-          "Modeled joint friction & energy usage; validated against physical UR5 logs.",
-          "Delivered tooling for waypoint-to-joint trajectory generation (6×1 output).",
+          "Modeled joint friction and energy usage; validated against physical UR5 logs.",
+          "Delivered tooling for waypoint-to-joint trajectory generation (6x1 output)."
         ],
-        images: ["images/orangewood/1.jpg", "images/orangewood/2.jpg"],
+        images: ["images/orangewood/1.jpg", "images/orangewood/2.jpg"]
       },
       {
         id: "insidefpv",
         company: "InsideFPV",
         role: "Product Design Intern",
-        period: "May–Nov 2023",
+        period: "May-Nov 2023",
         summary:
           "Designed a defense drone from scratch; led CAD, manufacturing, assembly, and tests. Applied Kaizen after test cycles; patent in process.",
         bullets: [
           "Structural optimization for weight-to-stiffness via AM-ready lattices.",
           "Field testing; iterated on powertrain cooling and arm quick-release.",
-          "Prepared provisional patent documentation with design evidence.",
+          "Prepared provisional patent documentation with design evidence."
         ],
         images: [
           "images/insidefpv/1.jpg",
           "images/insidefpv/2.jpg",
-          "images/insidefpv/3.jpg",
-        ],
+          "images/insidefpv/3.jpg"
+        ]
       },
       {
         id: "roverx",
-        company: "Team RoverX – VIT Vellore",
+        company: "Team RoverX - VIT Vellore",
         role: "Mechanical Core Member",
-        period: "2022–2023",
+        period: "2022-2023",
         summary:
           "Worked on rover mechanisms, drivetrain, and integration for international rover competitions.",
         bullets: [
           "Designed rocker-bogie elements and wheel hubs for harsh terrain.",
           "Optimized gear reductions and belt drives for torque/efficiency.",
-          "Supported integration & field validation under timed tasks.",
+          "Supported integration and field validation under timed tasks."
         ],
-        images: ["images/roverx/1.jpg", "images/roverx/2.jpg"],
-      },
+        images: ["images/roverx/1.jpg", "images/roverx/2.jpg"]
+      }
     ];
 
     const projects = [
@@ -123,15 +121,15 @@
         blurb:
           "Trajectory planning, IK, dynamic torque analysis; friction, stability and energy efficiency assessment.",
         details: [
-          "6-DOF rigid body tree, waypoint-based planner (3D Cartesian → 6×1 joint space).",
+          "6-DOF rigid body tree, waypoint-based planner (3D Cartesian -> 6x1 joint space).",
           "Computed-torque control with modeled viscous/Coulomb friction.",
-          "Compared simulation vs. real UR5 logs for validation.",
+          "Compared simulation vs. real UR5 logs for validation."
         ],
         images: [
           "images/projects/dtwin/1.jpg",
           "images/projects/dtwin/2.jpg",
-          "images/projects/dtwin/3.jpg",
-        ],
+          "images/projects/dtwin/3.jpg"
+        ]
       },
       {
         id: "steam-trap",
@@ -141,35 +139,35 @@
           "Electronically separates steam & condensate; improves plant energy efficiency.",
         details: [
           "Differential sensing with solenoid actuation and fail-safe bypass.",
-          "Bench tests showed reduced steam losses vs. mechanical traps.",
+          "Bench tests showed reduced steam losses vs. mechanical traps."
         ],
-        images: ["images/projects/steam/1.jpg", "images/projects/steam/2.jpg"],
+        images: ["images/projects/steam/1.jpg", "images/projects/steam/2.jpg"]
       },
       {
         id: "drone",
-        title: "3D‑Printed Drone",
+        title: "3D-Printed Drone",
         tags: ["Additive Manufacturing", "Aero"],
-        blurb: "Lightweight AM drone; runner‑up at AM Hackathon.",
+        blurb: "Lightweight AM drone; runner-up at AM Hackathon.",
         details: [
           "Topology-optimized arms and vibration isolation for FC.",
-          "Rapid print‑test‑iterate loop with PLA-CF and PETG.",
+          "Rapid print-test-iterate loop with PLA-CF and PETG."
         ],
         images: [
           "images/projects/drone/1.jpg",
           "images/projects/drone/2.jpg",
-          "images/projects/drone/3.jpg",
-        ],
+          "images/projects/drone/3.jpg"
+        ]
       },
       {
         id: "wheelbarrow-fea",
         title: "FEA of Wheelbarrow",
         tags: ["SolidWorks Simulation", "FEA"],
-        blurb: "Stress distribution & safety factor evaluation for load cases.",
+        blurb: "Stress distribution and safety factor evaluation for load cases.",
         details: [
           "Meshed frame & tray; applied boundary conditions for realistic loads.",
-          "Identified hotspots; suggested ribbing and material changes.",
+          "Identified hotspots; suggested ribbing and material changes."
         ],
-        images: ["images/projects/wheel/1.jpg", "images/projects/wheel/2.jpg"],
+        images: ["images/projects/wheel/1.jpg", "images/projects/wheel/2.jpg"]
       },
       {
         id: "sun-planet",
@@ -179,62 +177,37 @@
           "Designed and analyzed sun & planet mechanism for torque & efficiency.",
         details: [
           "Calculated gear ratios, contact stresses, and backlash targets.",
-          "Modeled efficiency vs. lubrication and material choices.",
+          "Modeled efficiency vs. lubrication and material choices."
         ],
-        images: ["images/projects/gear/1.jpg", "images/projects/gear/2.jpg"],
-      },
+        images: ["images/projects/gear/1.jpg", "images/projects/gear/2.jpg"]
+      }
     ];
 
     const awards = [
-      { id: "irdc-2022", title: "International Rover Design Challenge – 1st Worldwide", year: "2022" },
-      { id: "irc-2023", title: "International Rover Challenge – 2nd Worldwide (Bengaluru)", year: "2023" },
-      { id: "vit-award", title: "Special Achiever Award – VIT Vellore", year: "2023" },
-      { id: "am-hack", title: "Additive Manufacturing Hackathon – Runner‑up (3D‑Printed Drone)", year: "2023" },
+      { id: "irdc-2022", title: "International Rover Design Challenge - 1st Worldwide", year: "2022" },
+      { id: "irc-2023", title: "International Rover Challenge - 2nd Worldwide (Bengaluru)", year: "2023" },
+      { id: "vit-award", title: "Special Achiever Award - VIT Vellore", year: "2023" },
+      { id: "am-hack", title: "Additive Manufacturing Hackathon - Runner-up (3D-Printed Drone)", year: "2023" }
     ];
 
-    // ---- Lightbox ----
+    // ---------- Helpers ----------
     function Lightbox({ images, index, onClose, setIndex }) {
       if (!images || images.length === 0) return null;
       return (
-        <div
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"
-          onClick={onClose}
-          role="dialog"
-          aria-modal="true"
-        >
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center" onClick={onClose}>
           <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={images[index]}
-              alt={`slide ${index + 1}`}
-              className="w-full h-[60vh] object-contain rounded-xl"
-            />
-            <button
-              className="absolute top-3 right-3 bg-white/10 hover:bg-white/20 rounded-full px-3 py-1"
-              onClick={onClose}
-              aria-label="Close"
-            >
-              ✕
-            </button>
+            <img src={images[index]} alt={"slide " + (index + 1)} className="w-full h-[60vh] object-contain rounded-xl" />
+            <button className="absolute top-3 right-3 bg-white/10 hover:bg-white/20 rounded-full px-3 py-1" onClick={onClose}>✕</button>
             <div className="absolute inset-y-0 left-0 flex items-center">
-              <button
-                className="mx-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-2"
-                onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}
-                aria-label="Previous"
-              >
-                ←
-              </button>
+              <button className="mx-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-2"
+                onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}>←</button>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center">
-              <button
-                className="mx-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-2"
-                onClick={() => setIndex((i) => (i + 1) % images.length)}
-                aria-label="Next"
-              >
-                →
-              </button>
+              <button className="mx-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-2"
+                onClick={() => setIndex((i) => (i + 1) % images.length)}>→</button>
             </div>
             <div className="absolute bottom-3 w-full text-center text-sm text-gray-300">
-              {index + 1} / {images.length}
+              {(index + 1) + " / " + images.length}
             </div>
           </div>
         </div>
@@ -246,41 +219,15 @@
       return (
         <div className="grid grid-cols-3 gap-2">
           {images.map((src, idx) => (
-            <img
-              key={idx}
-              src={src}
-              alt={`thumb ${idx + 1}`}
+            <img key={idx} src={src} alt={"thumb " + (idx + 1)}
               className="h-28 w-full object-cover rounded-lg cursor-pointer hover:opacity-80"
-              onClick={() => onPick(idx)}
-            />
+              onClick={() => onPick(idx)} />
           ))}
         </div>
       );
     }
 
-    // ---- Self-tests (dev only) ----
-    function devSelfTests() {
-      try {
-        console.assert(Array.isArray(experiences), "experiences should be an array");
-        console.assert(experiences.every((e) => typeof e.company === "string"), "each experience needs company");
-        console.assert(Array.isArray(projects) && projects.length > 0, "projects should be a non-empty array");
-        console.assert(awards.every((a) => typeof a.title === "string"), "awards need titles");
-
-        console.assert(experiences.every((e) => Array.isArray(e.images)), "each experience must have images array");
-        console.assert(projects.every((p) => Array.isArray(p.details) && p.details.length >= 2), "each project needs details");
-        console.assert(projects.every((p) => Array.isArray(p.images) && p.images.length >= 1), "each project must have at least one image");
-        console.assert(new Set(projects.map((p) => p.id)).size === projects.length, "project ids must be unique");
-
-        const s = new Set();
-        s.add("x"); s.delete("x");
-        console.assert(!s.has("x"), "Set toggle should work");
-
-        console.log("✅ Portfolio self-tests passed");
-      } catch (err) {
-        console.error("❌ Portfolio self-tests failed", err);
-      }
-    }
-
+    // ---------- App ----------
     function Portfolio() {
       const [openLightbox, setOpenLightbox] = useState(false);
       const [lightboxImages, setLightboxImages] = useState([]);
@@ -289,10 +236,6 @@
       const [expandedProj, setExpandedProj] = useState(new Set());
       const [hideHeader, setHideHeader] = useState(false);
       const [lastY, setLastY] = useState(0);
-
-      useEffect(() => {
-        devSelfTests();
-      }, []);
 
       useEffect(() => {
         const onScroll = () => {
@@ -313,7 +256,6 @@
           return n;
         });
       };
-
       const toggleProj = (id) => {
         setExpandedProj((prev) => {
           const n = new Set(prev);
@@ -321,64 +263,80 @@
           return n;
         });
       };
-
       const openSlides = (images, idx = 0) => {
         setLightboxImages(images);
         setLightboxIndex(idx);
         setOpenLightbox(true);
       };
-
       const goTo = (id) => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       };
 
+      const headerClasses =
+        "p-8 text-center border-b border-gray-800 sticky top-0 z-10 backdrop-blur bg-gray-900/70 transition-transform duration-300 " +
+        (hideHeader ? "-translate-y-full" : "translate-y-0");
+
       return (
         <div className="bg-gray-900 text-gray-100 min-h-screen font-sans">
           {/* Header */}
-          <header
-            className={`p-8 text-center border-b border-gray-800 sticky top-0 z-10 backdrop-blur bg-gray-900/70 transition-transform duration-300 ${hideHeader ? "-translate-y-full" : "translate-y-0"}`}
-          >
+          <header className={headerClasses}>
             <h1 className="text-4xl font-bold text-white">Ashutosh Parmar</h1>
             <p className="text-lg text-gray-400 mt-2">Mechanical Engineer • Product Design • Robotics</p>
             <div className="mt-4 flex items-center justify-center gap-3">
-              <button type="button" onClick={() => goTo("contact")} className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500">Contact</button>
+              <button type="button" onClick={() => goTo("about")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">About</button>
+              <button type="button" onClick={() => goTo("education")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">Education</button>
               <button type="button" onClick={() => goTo("projects")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">Projects</button>
               <button type="button" onClick={() => goTo("experience")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">Experience</button>
+              <button type="button" onClick={() => goTo("contact")} className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500">Contact</button>
             </div>
           </header>
 
-          {/* Experience: Vertical timeline with inline expansion */}
+          {/* About Me */}
+          <section id="about" className="p-10 scroll-mt-24">
+            <h2 className="text-3xl font-semibold mb-4 text-white">About Me</h2>
+            <p className="text-gray-300 max-w-3xl">{aboutMe.intro}</p>
+          </section>
+
+          {/* Education */}
+          <section id="education" className="p-10 bg-gray-950 scroll-mt-24">
+            <h2 className="text-3xl font-semibold mb-6 text-white">Education</h2>
+            {education.map((edu) => (
+              <div key={edu.id} className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 mb-4">
+                <h3 className="text-xl font-bold">{edu.school}</h3>
+                <p className="text-gray-400 text-sm">{edu.degree} | {edu.period}</p>
+                <ul className="list-disc list-inside text-gray-200 mt-3 space-y-1">
+                  {edu.details.map((d, idx) => <li key={idx}>{d}</li>)}
+                </ul>
+              </div>
+            ))}
+          </section>
+
+          {/* Experience (vertical, inline expand) */}
           <section id="experience" className="p-10 scroll-mt-24">
             <h2 className="text-3xl font-semibold mb-6 text-white">Experience</h2>
             <div className="relative">
-              {/* vertical line */}
-              <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-700 via-fuchsia-600 to-cyan-500 rounded-full" />
+              <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-700 via-fuchsia-600 to-cyan-500 rounded-full"></div>
               <ul className="space-y-6 relative">
                 {experiences.map((exp) => {
                   const isOpen = expandedExp.has(exp.id);
                   return (
                     <li key={exp.id} className="pl-12">
-                      <button
-                        onClick={() => toggleExp(exp.id)}
-                        className="w-full text-left bg-gray-800/80 hover:bg-gray-800 transition rounded-2xl shadow-md p-6 border border-gray-700 hover:border-indigo-500/60"
-                      >
+                      <button onClick={() => toggleExp(exp.id)} className="w-full text-left bg-gray-800/80 hover:bg-gray-800 transition rounded-2xl shadow-md p-6 border border-gray-700 hover:border-indigo-500/60">
                         <div className="flex items-start gap-3">
-                          <div className="mt-1 h-3 w-3 rounded-full bg-white border border-gray-700 shadow absolute left-3" />
+                          <div className="mt-1 h-3 w-3 rounded-full bg-white border border-gray-700 shadow absolute left-3"></div>
                           <div>
                             <h3 className="text-xl font-bold">{exp.company}</h3>
                             <p className="text-gray-400 text-sm">{exp.role} | {exp.period}</p>
                             <p className="mt-2 text-gray-300">{exp.summary}</p>
-                            <span className="mt-3 inline-flex items-center gap-2 text-indigo-400">{isOpen ? "Hide details" : "Show details"} →</span>
+                            <span className="mt-3 inline-flex items-center gap-2 text-indigo-400">{isOpen ? "Hide details" : "Show details"} </span>
                           </div>
                         </div>
                       </button>
                       {isOpen && (
                         <div className="mx-2 mt-3 rounded-2xl border border-gray-700 bg-gray-900 p-5">
                           <ul className="list-disc list-inside space-y-1 text-gray-200">
-                            {exp.bullets.map((b, idx) => (
-                              <li key={idx}>{b}</li>
-                            ))}
+                            {exp.bullets.map((b, idx) => <li key={idx}>{b}</li>)}
                           </ul>
                           <div className="mt-4 space-y-2">
                             <ImageGrid images={exp.images} onPick={(idx) => openSlides(exp.images, idx)} />
@@ -392,7 +350,7 @@
             </div>
           </section>
 
-          {/* Projects: inline expansion tiles */}
+          {/* Projects (inline expand) */}
           <section id="projects" className="p-10 bg-gray-950 scroll-mt-24">
             <h2 className="text-3xl font-semibold mb-6 text-white">Projects</h2>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
@@ -400,32 +358,21 @@
                 const isOpen = expandedProj.has(p.id);
                 return (
                   <div key={p.id} className="bg-gray-800/80 rounded-2xl border border-gray-700">
-                    <button
-                      onClick={() => toggleProj(p.id)}
-                      className="w-full text-left p-6 hover:bg-gray-800 transition rounded-2xl"
-                    >
+                    <button onClick={() => toggleProj(p.id)} className="w-full text-left p-6 hover:bg-gray-800 transition rounded-2xl">
                       <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-700">
-                        <img
-                          src={(p.images && p.images[0]) || "images/placeholder.jpg"}
-                          alt={p.title}
-                          className="h-full w-full object-cover"
-                        />
+                        <img src={(p.images && p.images[0]) || "images/placeholder.jpg"} alt={p.title} className="h-full w-full object-cover" />
                       </div>
                       <h3 className="text-xl font-bold mt-4">{p.title}</h3>
                       <p className="text-gray-400 text-sm mt-1">{p.blurb}</p>
-                      <span className="mt-3 inline-flex items-center gap-2 text-fuchsia-400">{isOpen ? "Hide details" : "Show details"} →</span>
+                      <span className="mt-3 inline-flex items-center gap-2 text-fuchsia-400">{isOpen ? "Hide details" : "Show details"} </span>
                     </button>
                     {isOpen && (
                       <div className="px-6 pb-6 space-y-3">
-                        <ul className="list-disc list-inside text-gray-200 space-y-1">
-                          {p.details.map((d, i) => (
-                            <li key={i}>{d}</li>
-                          ))}
+                        <ul className="list-disc list-inside text-gray-2 00 space-y-1">
+                          {p.details.map((d, i) => <li key={i}>{d}</li>)}
                         </ul>
                         <div className="flex gap-2 flex-wrap">
-                          {p.tags.map((t) => (
-                            <span key={t} className="text-xs px-2 py-1 rounded-full bg-gray-900 border border-gray-700">{t}</span>
-                          ))}
+                          {p.tags.map((t) => <span key={t} className="text-xs px-2 py-1 rounded-full bg-gray-900 border border-gray-700">{t}</span>)}
                         </div>
                         <div className="mt-2">
                           <ImageGrid images={p.images} onPick={(idx) => openSlides(p.images, idx)} />
@@ -438,18 +385,13 @@
             </div>
           </section>
 
-          {/* Awards & Achievements */}
+          {/* Awards */}
           <section className="p-10 scroll-mt-24">
             <h2 className="text-3xl font-semibold mb-6 text-white">Awards & Achievements</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {awards.map((a) => (
-                <div
-                  key={a.id}
-                  className="bg-gray-800/80 border border-gray-700 rounded-2xl p-5 flex items-start gap-4 hover:border-cyan-500/60 transition"
-                >
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 grid place-content-center font-bold">
-                    🏆
-                  </div>
+                <div key={a.id} className="bg-gray-800/80 border border-gray-700 rounded-2xl p-5 flex items-start gap-4 hover:border-cyan-500/60 transition">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 grid place-content-center font-bold">🏆</div>
                   <div>
                     <div className="font-semibold">{a.title}</div>
                     <div className="text-gray-400 text-sm">{a.year}</div>
@@ -480,13 +422,11 @@
                   <button
                     onClick={() => {
                       const subject = encodeURIComponent("Portfolio inquiry");
-                      const body = encodeURIComponent(`Hi Ashutosh,\n\nI saw your portfolio and would like to discuss ...\n\nThanks,`);
-                      window.location.href = `mailto:your.email@domain.com?subject=${subject}&body=${body}`;
+                      const body = encodeURIComponent("Hi Ashutosh,\n\nI saw your portfolio and would like to discuss ...\n\nThanks,");
+                      window.location.href = "mailto:your.email@domain.com?subject=" + subject + "&body=" + body;
                     }}
                     className="mt-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500"
-                  >
-                    Quick Email
-                  </button>
+                  >Quick Email</button>
                 </div>
               </div>
 
@@ -497,45 +437,29 @@
                   const name = form.name.value;
                   const email = form.email.value;
                   const message = form.message.value;
-                  const subject = encodeURIComponent(`Message from ${name}`);
-                  const body = encodeURIComponent(`${message}\n\nRespond to: ${email}`);
-                  window.location.href = `mailto:your.email@domain.com?subject=${subject}&body=${body}`;
+                  const subject = encodeURIComponent("Message from " + name);
+                  const body = encodeURIComponent(message + "\n\nRespond to: " + email);
+                  window.location.href = "mailto:your.email@domain.com?subject=" + subject + "&body=" + body;
                 }}
                 className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 space-y-3"
               >
                 <div>
                   <label className="text-sm text-gray-400">Name</label>
-                  <input
-                    name="name"
-                    required
-                    className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500"
-                  />
+                  <input name="name" required className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500" />
                 </div>
                 <div>
                   <label className="text-sm text-gray-400">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500"
-                  />
+                  <input type="email" name="email" required className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500" />
                 </div>
                 <div>
                   <label className="text-sm text-gray-400">Message</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500"
-                  />
+                  <textarea name="message" rows="4" required className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500"></textarea>
                 </div>
-                <button type="submit" className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500">
-                  Send
-                </button>
+                <button type="submit" className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500">Send</button>
               </form>
             </div>
             <p className="text-xs text-gray-500 mt-3">
-              Replace placeholders with your real links & email. Place your images in an <code>images/</code> folder at the repo root and keep paths as shown above.
+              Place your images under an <code>images/</code> folder at the repo root. Keep paths as shown above.
             </p>
           </section>
 
@@ -556,7 +480,7 @@
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
+    const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(<Portfolio />);
   </script>
 </body>
