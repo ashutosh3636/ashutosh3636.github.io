@@ -1,487 +1,540 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ashutosh Parmar — Portfolio</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ashutosh Parmar — Portfolio</title>
+<style>
+  :root{
+    --bg:#0f172a;          /* slate-900 */
+    --panel:#111827;       /* gray-900 */
+    --muted:#374151;       /* gray-700 */
+    --text:#e5e7eb;        /* gray-200 */
+    --text-dim:#a1a1aa;    /* zinc-400 */
+    --brand:#6366f1;       /* indigo-500 */
+    --brand-2:#06b6d4;     /* cyan-500 */
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+    background:var(--bg); color:var(--text);
+  }
+  a{color:var(--brand)}
+  .container{max-width:1100px; margin:0 auto; padding:0 20px}
+  .btn{
+    display:inline-block; padding:10px 16px; border-radius:12px; border:1px solid var(--muted);
+    background:#0b1220; color:var(--text); text-decoration:none; cursor:pointer;
+  }
+  .btn.primary{background:var(--brand); border-color:transparent}
+  .btn:hover{filter:brightness(1.06)}
 
-  <!-- Tailwind (no build step) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(6px);
+    background:rgba(15,23,42,.75); border-bottom:1px solid #1f2937; transition:transform .25s ease;
+  }
+  header.hidden{transform:translateY(-100%)}
+  .header-inner{padding:28px 0; text-align:center}
+  .title{margin:0; font-size:34px}
+  .subtitle{margin:6px 0 0; color:var(--text-dim)}
+  .nav{margin-top:12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
 
-  <!-- React 18 + ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  /* Sections */
+  section{padding:40px 0}
+  section.alt{background:#0a0f1d}
+  h2{margin:0 0 18px; font-size:28px}
 
-  <!-- Babel to compile JSX in the browser -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  /* Cards / tiles */
+  .tile{
+    background:rgba(17,24,39,.9); border:1px solid var(--muted); border-radius:18px;
+    padding:18px; transition:border-color .2s ease, transform .2s ease;
+  }
+  .tile:hover{border-color:#475569; transform:translateY(-1px)}
+  .tile-head{display:flex; gap:12px; align-items:flex-start; text-align:left}
+  .chip{display:inline-block; padding:2px 8px; font-size:12px; border-radius:999px; border:1px solid var(--muted); background:#0a0f1d; color:#cbd5e1}
 
-  <style>
-    html { scroll-behavior: smooth; }
-    body { background: #0f172a; } /* slate-900 */
-  </style>
+  /* Vertical timeline */
+  .vline-wrap{position:relative}
+  .vline{position:absolute; left:14px; top:0; bottom:0; width:3px; background:linear-gradient(#6366f1,#a855f7,#06b6d4); border-radius:2px}
+  .node{position:absolute; left:8px; margin-top:7px; width:14px; height:14px; border-radius:50%; background:#fff; border:1px solid #334155}
+  .tl-item{position:relative; padding-left:40px; margin-bottom:16px}
+
+  /* Expand / collapse */
+  .tile-toggle{all:unset; cursor:pointer; display:block; width:100%}
+  .tile-content{display:none; margin-top:10px}
+  .tile.open .tile-content{display:block}
+
+  /* Grids */
+  .grid{display:grid; gap:16px}
+  .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:780px){ .grid.two,.grid.three{grid-template-columns:1fr} }
+
+  /* Ratio boxes for uniform covers (16:9) and thumbs (4:3) */
+  .ratio{position:relative; width:100%; overflow:hidden; border-radius:14px; border:1px solid var(--muted); background:#000}
+  .r16x9{padding-bottom:56.25%}
+  .r4x3{padding-bottom:75%}
+  .ratio > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+  /* Image box that keeps same height and fits any image (no crop) */
+  .image-box{position:relative; width:100%; height:300px; background:#000; border:1px solid var(--muted); border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden}
+  .image-box > img{max-width:100%; max-height:100%; object-fit:contain}
+
+  /* Auto-fit (full-width, variable height) */
+  .auto-fit{display:block; width:100%; background:#000; border:1px solid var(--muted); border-radius:14px; overflow:hidden}
+  .auto-fit img{display:block; width:100%; height:auto; object-fit:contain}
+
+  /* Lists */
+  ul.clean{list-style:disc; padding-left:18px; margin:8px 0}
+  .muted{color:var(--text-dim)}
+  .pill{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:#0a0f1d; border:1px solid var(--muted); font-size:12px; color:#cbd5e1}
+
+  /* Lightbox */
+  .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:100}
+  .lightbox.open{display:flex}
+  .lb-inner{position:relative; width:min(96vw,1100px)}
+  .lb-img{width:100%; height:75vh; background:#000; object-fit:contain; border-radius:14px}
+  .lb-btn{position:absolute; top:8px; background:rgba(255,255,255,.12); border:0; color:#fff; padding:8px 10px; border-radius:10px; cursor:pointer}
+  .lb-close{right:8px}
+  .lb-prev{left:8px; top:50%; transform:translateY(-50%)}
+  .lb-next{right:8px; top:50%; transform:translateY(-50%)}
+  .lb-count{position:absolute; bottom:10px; left:0; right:0; text-align:center; color:#e2e8f0}
+
+  footer{border-top:1px solid #1f2937; padding:26px 0; color:#9ca3af; text-align:center}
+</style>
 </head>
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState, useEffect } = React;
+<header id="siteHeader">
+  <div class="container header-inner">
+    <h1 class="title">Ashutosh Parmar</h1>
+    <p class="subtitle">Mechanical Engineer • Product Design • Robotics</p>
+    <nav class="nav">
+      <a class="btn" href="#about">About</a>
+      <a class="btn" href="#education">Education</a>
+      <a class="btn" href="#experience">Experience</a>
+      <a class="btn" href="#projects">Projects</a>
+      <a class="btn primary" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
-    // ---------- Data ----------
-    const aboutMe = {
-      intro:
-        "Final-year Mechanical Engineering student focused on product design, robotics, and manufacturing systems. I work across CAD/FEA, Digital Twin simulations (MATLAB/Simulink), and rapid prototyping to ship reliable, manufacturable designs."
-    };
+<main>
 
-    const education = [
-      {
-        id: "vit",
-        school: "VIT Vellore",
-        degree: "B.Tech in Mechanical Engineering",
-        period: "2021 - 2025",
-        details: [
-          "Focus: Product Design, Robotics, and Digital Twin.",
-          "Notable work: Digital Twin of UR5, Smart Steam Trap, 3D-Printed Drone.",
-          "Awards: IRDC 2022 (1st), IRC 2023 (2nd), VIT Special Achiever."
-        ]
-      }
-    ];
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="tile">
+        <p class="muted" style="margin:0">
+          Final-year Mechanical Engineering student focused on product design, robotics, and manufacturing systems.
+          I work across CAD/FEA, Digital Twin simulations (MATLAB/Simulink), and rapid prototyping to ship reliable, manufacturable designs.
+        </p>
+      </div>
+    </div>
+  </section>
 
-    const experiences = [
-      {
-        id: "whirlpool",
-        company: "Whirlpool Corporation",
-        role: "Product Design Intern",
-        period: "2025",
-        summary:
-          "Worked on laundry & dispenser systems. Authored 3 patents and 1 trade secret (under review). Used CSM, thought maps, FMEA; tooling in Creo Parametric & Windchill.",
-        bullets: [
-          "Led design iterations for dispenser sub-assemblies targeting reliability and manufacturability.",
-          "Ran tolerance studies and DFMEA to de-risk failure modes before EVT.",
-          "Coordinated with suppliers for DFM feedback and cost-down proposals."
-        ],
-        images: [
-          "images/whirlpool/1.jpg",
-          "images/whirlpool/2.jpg",
-          "images/whirlpool/3.jpg"
-        ]
-      },
-      {
-        id: "orangewood",
-        company: "Orangewood Labs (YC)",
-        role: "Robotics Intern",
-        period: "2019-2021, 2021-2025",
-        summary:
-          "Built a Digital Twin of a UR5 for kinematics/dynamics, trajectory planning, and computed-torque control in MATLAB/Simulink.",
-        bullets: [
-          "Implemented trapezoidal velocity profiles; integrated IK and Jacobian-based controllers.",
-          "Modeled joint friction and energy usage; validated against physical UR5 logs.",
-          "Delivered tooling for waypoint-to-joint trajectory generation (6x1 output)."
-        ],
-        images: ["images/orangewood/1.jpg", "images/orangewood/2.jpg"]
-      },
-      {
-        id: "insidefpv",
-        company: "InsideFPV",
-        role: "Product Design Intern",
-        period: "May-Nov 2023",
-        summary:
-          "Designed a defense drone from scratch; led CAD, manufacturing, assembly, and tests. Applied Kaizen after test cycles; patent in process.",
-        bullets: [
-          "Structural optimization for weight-to-stiffness via AM-ready lattices.",
-          "Field testing; iterated on powertrain cooling and arm quick-release.",
-          "Prepared provisional patent documentation with design evidence."
-        ],
-        images: [
-          "images/insidefpv/1.jpg",
-          "images/insidefpv/2.jpg",
-          "images/insidefpv/3.jpg"
-        ]
-      },
-      {
-        id: "roverx",
-        company: "Team RoverX - VIT Vellore",
-        role: "Mechanical Core Member",
-        period: "2022-2023",
-        summary:
-          "Worked on rover mechanisms, drivetrain, and integration for international rover competitions.",
-        bullets: [
-          "Designed rocker-bogie elements and wheel hubs for harsh terrain.",
-          "Optimized gear reductions and belt drives for torque/efficiency.",
-          "Supported integration and field validation under timed tasks."
-        ],
-        images: ["images/roverx/1.jpg", "images/roverx/2.jpg"]
-      }
-    ];
+  <!-- Education -->
+  <section id="education" class="alt">
+    <div class="container">
+      <h2>Education</h2>
+      <div class="tile">
+        <div class="tile-head">
+          <div>
+            <h3 style="margin:0 0 4px">VIT Vellore</h3>
+            <div class="muted">B.Tech in Mechanical Engineering • 2021 – 2025</div>
+            <ul class="clean">
+              <li>Focus: Product Design, Robotics, and Digital Twin.</li>
+              <li>Notable work: Digital Twin of UR5, Smart Steam Trap, 3D-Printed Drone.</li>
+              <li>Awards: IRDC 2022 (1st), IRC 2023 (2nd), VIT Special Achiever.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    const projects = [
-      {
-        id: "digital-twin",
-        title: "Digital Twin of UR5 Robot",
-        tags: ["MATLAB", "Simulink", "Kinematics", "Dynamics"],
-        blurb:
-          "Trajectory planning, IK, dynamic torque analysis; friction, stability and energy efficiency assessment.",
-        details: [
-          "6-DOF rigid body tree, waypoint-based planner (3D Cartesian -> 6x1 joint space).",
-          "Computed-torque control with modeled viscous/Coulomb friction.",
-          "Compared simulation vs. real UR5 logs for validation."
-        ],
-        images: [
-          "images/projects/dtwin/1.jpg",
-          "images/projects/dtwin/2.jpg",
-          "images/projects/dtwin/3.jpg"
-        ]
-      },
-      {
-        id: "steam-trap",
-        title: "Smart Steam Trap",
-        tags: ["Industrial IoT", "Controls"],
-        blurb:
-          "Electronically separates steam & condensate; improves plant energy efficiency.",
-        details: [
-          "Differential sensing with solenoid actuation and fail-safe bypass.",
-          "Bench tests showed reduced steam losses vs. mechanical traps."
-        ],
-        images: ["images/projects/steam/1.jpg", "images/projects/steam/2.jpg"]
-      },
-      {
-        id: "drone",
-        title: "3D-Printed Drone",
-        tags: ["Additive Manufacturing", "Aero"],
-        blurb: "Lightweight AM drone; runner-up at AM Hackathon.",
-        details: [
-          "Topology-optimized arms and vibration isolation for FC.",
-          "Rapid print-test-iterate loop with PLA-CF and PETG."
-        ],
-        images: [
-          "images/projects/drone/1.jpg",
-          "images/projects/drone/2.jpg",
-          "images/projects/drone/3.jpg"
-        ]
-      },
-      {
-        id: "wheelbarrow-fea",
-        title: "FEA of Wheelbarrow",
-        tags: ["SolidWorks Simulation", "FEA"],
-        blurb: "Stress distribution and safety factor evaluation for load cases.",
-        details: [
-          "Meshed frame & tray; applied boundary conditions for realistic loads.",
-          "Identified hotspots; suggested ribbing and material changes."
-        ],
-        images: ["images/projects/wheel/1.jpg", "images/projects/wheel/2.jpg"]
-      },
-      {
-        id: "sun-planet",
-        title: "Sun & Planet Gear Design",
-        tags: ["Gear Design", "Kinematics"],
-        blurb:
-          "Designed and analyzed sun & planet mechanism for torque & efficiency.",
-        details: [
-          "Calculated gear ratios, contact stresses, and backlash targets.",
-          "Modeled efficiency vs. lubrication and material choices."
-        ],
-        images: ["images/projects/gear/1.jpg", "images/projects/gear/2.jpg"]
-      }
-    ];
+  <!-- EXPERIENCE (kept as before; vertical timeline; expand) -->
+  <section id="experience">
+    <div class="container">
+      <h2>Experience</h2>
 
-    const awards = [
-      { id: "irdc-2022", title: "International Rover Design Challenge - 1st Worldwide", year: "2022" },
-      { id: "irc-2023", title: "International Rover Challenge - 2nd Worldwide (Bengaluru)", year: "2023" },
-      { id: "vit-award", title: "Special Achiever Award - VIT Vellore", year: "2023" },
-      { id: "am-hack", title: "Additive Manufacturing Hackathon - Runner-up (3D-Printed Drone)", year: "2023" }
-    ];
+      <div class="vline-wrap">
+        <div class="vline"></div>
 
-    // ---------- Helpers ----------
-    function Lightbox({ images, index, onClose, setIndex }) {
-      if (!images || images.length === 0) return null;
-      return (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center" onClick={onClose}>
-          <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <img src={images[index]} alt={"slide " + (index + 1)} className="w-full h-[60vh] object-contain rounded-xl" />
-            <button className="absolute top-3 right-3 bg-white/10 hover:bg-white/20 rounded-full px-3 py-1" onClick={onClose}>✕</button>
-            <div className="absolute inset-y-0 left-0 flex items-center">
-              <button className="mx-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-2"
-                onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}>←</button>
-            </div>
-            <div className="absolute inset-y-0 right-0 flex items-center">
-              <button className="mx-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-2"
-                onClick={() => setIndex((i) => (i + 1) % images.length)}>→</button>
-            </div>
-            <div className="absolute bottom-3 w-full text-center text-sm text-gray-300">
-              {(index + 1) + " / " + images.length}
+        <div class="tl-item">
+          <span class="node"></span>
+          <div class="tile">
+            <button class="tile-toggle" aria-expanded="false">
+              <h3 style="margin:0 0 4px">Whirlpool Corporation</h3>
+              <div class="muted">Product Design Intern <strong> Pune, India </strong> • Jan 2025 - July 2025</div>
+              <p class="muted" style="margin:8px 0 0">
+                Worked on laundry & dispenser systems. 3 patents + 1 trade secret (under review).
+              </p>
+            </button>
+            <div class="tile-content">
+              <ul class="clean">
+                <li>Design iterations for dispenser sub-assemblies (reliability & manufacturability).</li>
+                <li>DFMEA and tolerance studies to de-risk before EVT.</li>
+                <li>Supplier collaboration for DFM & cost-down proposals.</li>
+              </ul>
+
+              <!-- LOGO/IMAGE: fixed-height box fits any dimension (no crop) -->
+              <!-- Slideshow (any image sizes) -->
+<div class="slider"
+     data-images='[
+       "images/whirlpool_logo.png",
+       "images/rover.png",
+       "images/whirlpool/3.jpg",
+       "images/whirlpool/4.jpg"
+     ]'>
+  <button class="s-btn s-prev" aria-label="Previous">←</button>
+  <button class="s-btn s-next" aria-label="Next">→</button>
+  <div class="s-count"></div>
+</div>
+
             </div>
           </div>
         </div>
-      );
-    }
 
-    function ImageGrid({ images, onPick }) {
-      if (!images || images.length === 0) return null;
-      return (
-        <div className="grid grid-cols-3 gap-2">
-          {images.map((src, idx) => (
-            <img key={idx} src={src} alt={"thumb " + (idx + 1)}
-              className="h-28 w-full object-cover rounded-lg cursor-pointer hover:opacity-80"
-              onClick={() => onPick(idx)} />
-          ))}
-        </div>
-      );
-    }
-
-    // ---------- App ----------
-    function Portfolio() {
-      const [openLightbox, setOpenLightbox] = useState(false);
-      const [lightboxImages, setLightboxImages] = useState([]);
-      const [lightboxIndex, setLightboxIndex] = useState(0);
-      const [expandedExp, setExpandedExp] = useState(new Set());
-      const [expandedProj, setExpandedProj] = useState(new Set());
-      const [hideHeader, setHideHeader] = useState(false);
-      const [lastY, setLastY] = useState(0);
-
-      useEffect(() => {
-        const onScroll = () => {
-          const y = window.scrollY || 0;
-          const goingDown = y > lastY;
-          const nearTop = y < 24;
-          setHideHeader(goingDown && !nearTop);
-          setLastY(y);
-        };
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-      }, [lastY]);
-
-      const toggleExp = (id) => {
-        setExpandedExp((prev) => {
-          const n = new Set(prev);
-          n.has(id) ? n.delete(id) : n.add(id);
-          return n;
-        });
-      };
-      const toggleProj = (id) => {
-        setExpandedProj((prev) => {
-          const n = new Set(prev);
-          n.has(id) ? n.delete(id) : n.add(id);
-          return n;
-        });
-      };
-      const openSlides = (images, idx = 0) => {
-        setLightboxImages(images);
-        setLightboxIndex(idx);
-        setOpenLightbox(true);
-      };
-      const goTo = (id) => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      };
-
-      const headerClasses =
-        "p-8 text-center border-b border-gray-800 sticky top-0 z-10 backdrop-blur bg-gray-900/70 transition-transform duration-300 " +
-        (hideHeader ? "-translate-y-full" : "translate-y-0");
-
-      return (
-        <div className="bg-gray-900 text-gray-100 min-h-screen font-sans">
-          {/* Header */}
-          <header className={headerClasses}>
-            <h1 className="text-4xl font-bold text-white">Ashutosh Parmar</h1>
-            <p className="text-lg text-gray-400 mt-2">Mechanical Engineer • Product Design • Robotics</p>
-            <div className="mt-4 flex items-center justify-center gap-3">
-              <button type="button" onClick={() => goTo("about")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">About</button>
-              <button type="button" onClick={() => goTo("education")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">Education</button>
-              <button type="button" onClick={() => goTo("projects")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">Projects</button>
-              <button type="button" onClick={() => goTo("experience")} className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700">Experience</button>
-              <button type="button" onClick={() => goTo("contact")} className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500">Contact</button>
-            </div>
-          </header>
-
-          {/* About Me */}
-          <section id="about" className="p-10 scroll-mt-24">
-            <h2 className="text-3xl font-semibold mb-4 text-white">About Me</h2>
-            <p className="text-gray-300 max-w-3xl">{aboutMe.intro}</p>
-          </section>
-
-          {/* Education */}
-          <section id="education" className="p-10 bg-gray-950 scroll-mt-24">
-            <h2 className="text-3xl font-semibold mb-6 text-white">Education</h2>
-            {education.map((edu) => (
-              <div key={edu.id} className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 mb-4">
-                <h3 className="text-xl font-bold">{edu.school}</h3>
-                <p className="text-gray-400 text-sm">{edu.degree} | {edu.period}</p>
-                <ul className="list-disc list-inside text-gray-200 mt-3 space-y-1">
-                  {edu.details.map((d, idx) => <li key={idx}>{d}</li>)}
-                </ul>
-              </div>
-            ))}
-          </section>
-
-          {/* Experience (vertical, inline expand) */}
-          <section id="experience" className="p-10 scroll-mt-24">
-            <h2 className="text-3xl font-semibold mb-6 text-white">Experience</h2>
-            <div className="relative">
-              <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-700 via-fuchsia-600 to-cyan-500 rounded-full"></div>
-              <ul className="space-y-6 relative">
-                {experiences.map((exp) => {
-                  const isOpen = expandedExp.has(exp.id);
-                  return (
-                    <li key={exp.id} className="pl-12">
-                      <button onClick={() => toggleExp(exp.id)} className="w-full text-left bg-gray-800/80 hover:bg-gray-800 transition rounded-2xl shadow-md p-6 border border-gray-700 hover:border-indigo-500/60">
-                        <div className="flex items-start gap-3">
-                          <div className="mt-1 h-3 w-3 rounded-full bg-white border border-gray-700 shadow absolute left-3"></div>
-                          <div>
-                            <h3 className="text-xl font-bold">{exp.company}</h3>
-                            <p className="text-gray-400 text-sm">{exp.role} | {exp.period}</p>
-                            <p className="mt-2 text-gray-300">{exp.summary}</p>
-                            <span className="mt-3 inline-flex items-center gap-2 text-indigo-400">{isOpen ? "Hide details" : "Show details"} </span>
-                          </div>
-                        </div>
-                      </button>
-                      {isOpen && (
-                        <div className="mx-2 mt-3 rounded-2xl border border-gray-700 bg-gray-900 p-5">
-                          <ul className="list-disc list-inside space-y-1 text-gray-200">
-                            {exp.bullets.map((b, idx) => <li key={idx}>{b}</li>)}
-                          </ul>
-                          <div className="mt-4 space-y-2">
-                            <ImageGrid images={exp.images} onPick={(idx) => openSlides(exp.images, idx)} />
-                          </div>
-                        </div>
-                      )}
-                    </li>
-                  );
-                })}
+        <div class="tl-item">
+          <span class="node"></span>
+          <div class="tile">
+            <button class="tile-toggle" aria-expanded="false">
+              <h3 style="margin:0 0 4px">Orangewood Labs (YC)</h3>
+              <div class="muted">Robotics Intern • 2019–2021, 2021–2025</div>
+              <p class="muted" style="margin:8px 0 0">
+                Digital Twin of UR5 for kinematics/dynamics, trajectory planning, computed-torque control.
+              </p>
+            </button>
+            <div class="tile-content">
+              <ul class="clean">
+                <li>Trapezoidal profiles; IK & Jacobian controllers.</li>
+                <li>Friction & energy modeling; validated on UR5 logs.</li>
+                <li>Waypoint → joint trajectory tooling.</li>
               </ul>
-            </div>
-          </section>
-
-          {/* Projects (inline expand) */}
-          <section id="projects" className="p-10 bg-gray-950 scroll-mt-24">
-            <h2 className="text-3xl font-semibold mb-6 text-white">Projects</h2>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-              {projects.map((p) => {
-                const isOpen = expandedProj.has(p.id);
-                return (
-                  <div key={p.id} className="bg-gray-800/80 rounded-2xl border border-gray-700">
-                    <button onClick={() => toggleProj(p.id)} className="w-full text-left p-6 hover:bg-gray-800 transition rounded-2xl">
-                      <div className="aspect-video w-full overflow-hidden rounded-xl border border-gray-700">
-                        <img src={(p.images && p.images[0]) || "images/placeholder.jpg"} alt={p.title} className="h-full w-full object-cover" />
-                      </div>
-                      <h3 className="text-xl font-bold mt-4">{p.title}</h3>
-                      <p className="text-gray-400 text-sm mt-1">{p.blurb}</p>
-                      <span className="mt-3 inline-flex items-center gap-2 text-fuchsia-400">{isOpen ? "Hide details" : "Show details"} </span>
-                    </button>
-                    {isOpen && (
-                      <div className="px-6 pb-6 space-y-3">
-                        <ul className="list-disc list-inside text-gray-2 00 space-y-1">
-                          {p.details.map((d, i) => <li key={i}>{d}</li>)}
-                        </ul>
-                        <div className="flex gap-2 flex-wrap">
-                          {p.tags.map((t) => <span key={t} className="text-xs px-2 py-1 rounded-full bg-gray-900 border border-gray-700">{t}</span>)}
-                        </div>
-                        <div className="mt-2">
-                          <ImageGrid images={p.images} onPick={(idx) => openSlides(p.images, idx)} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Awards */}
-          <section className="p-10 scroll-mt-24">
-            <h2 className="text-3xl font-semibold mb-6 text-white">Awards & Achievements</h2>
-            <div className="grid md:grid-cols-2 gap-4">
-              {awards.map((a) => (
-                <div key={a.id} className="bg-gray-800/80 border border-gray-700 rounded-2xl p-5 flex items-start gap-4 hover:border-cyan-500/60 transition">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 grid place-content-center font-bold">🏆</div>
-                  <div>
-                    <div className="font-semibold">{a.title}</div>
-                    <div className="text-gray-400 text-sm">{a.year}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Contact */}
-          <section id="contact" className="p-10 bg-gray-950 scroll-mt-24">
-            <h2 className="text-3xl font-semibold mb-6 text-white">Contact</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 space-y-3">
-                <div>
-                  <div className="text-gray-300">Email</div>
-                  <a className="text-indigo-400 hover:underline" href="mailto:your.email@domain.com">your.email@domain.com</a>
-                </div>
-                <div>
-                  <div className="text-gray-300">LinkedIn</div>
-                  <a className="text-indigo-400 hover:underline" href="#">linkedin.com/in/your-handle</a>
-                </div>
-                <div>
-                  <div className="text-gray-300">GitHub</div>
-                  <a className="text-indigo-400 hover:underline" href="#">github.com/your-handle</a>
-                </div>
-                <div>
-                  <button
-                    onClick={() => {
-                      const subject = encodeURIComponent("Portfolio inquiry");
-                      const body = encodeURIComponent("Hi Ashutosh,\n\nI saw your portfolio and would like to discuss ...\n\nThanks,");
-                      window.location.href = "mailto:your.email@domain.com?subject=" + subject + "&body=" + body;
-                    }}
-                    className="mt-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500"
-                  >Quick Email</button>
-                </div>
+              <!-- Uniform 4:3 thumbs (any image dims will look consistent) -->
+              <div class="grid three" data-gallery>
+                <div class="ratio r4x3"><img src="images/orangewood/1.jpg" alt=""></div>
+                <div class="ratio r4x3"><img src="images/orangewood/2.jpg" alt=""></div>
+                <div class="ratio r4x3"><img src="images/projects/dtwin/1.jpg" alt=""></div>
               </div>
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = e.currentTarget;
-                  const name = form.name.value;
-                  const email = form.email.value;
-                  const message = form.message.value;
-                  const subject = encodeURIComponent("Message from " + name);
-                  const body = encodeURIComponent(message + "\n\nRespond to: " + email);
-                  window.location.href = "mailto:your.email@domain.com?subject=" + subject + "&body=" + body;
-                }}
-                className="bg-gray-800/80 border border-gray-700 rounded-2xl p-6 space-y-3"
-              >
-                <div>
-                  <label className="text-sm text-gray-400">Name</label>
-                  <input name="name" required className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500" />
-                </div>
-                <div>
-                  <label className="text-sm text-gray-400">Email</label>
-                  <input type="email" name="email" required className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500" />
-                </div>
-                <div>
-                  <label className="text-sm text-gray-400">Message</label>
-                  <textarea name="message" rows="4" required className="w-full mt-1 bg-gray-900 border border-gray-700 rounded-xl p-2 outline-none focus:border-indigo-500"></textarea>
-                </div>
-                <button type="submit" className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500">Send</button>
-              </form>
             </div>
-            <p className="text-xs text-gray-500 mt-3">
-              Place your images under an <code>images/</code> folder at the repo root. Keep paths as shown above.
-            </p>
-          </section>
-
-          {/* Footer */}
-          <footer className="p-8 text-center border-t border-gray-800 text-gray-400">
-            <p>© 2025 Ashutosh Parmar • Portfolio</p>
-          </footer>
-
-          {openLightbox && (
-            <Lightbox
-              images={lightboxImages}
-              index={lightboxIndex}
-              setIndex={setLightboxIndex}
-              onClose={() => setOpenLightbox(false)}
-            />
-          )}
+          </div>
         </div>
-      );
-    }
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<Portfolio />);
-  </script>
+        <div class="tl-item">
+          <span class="node"></span>
+          <div class="tile">
+            <button class="tile-toggle" aria-expanded="false">
+              <h3 style="margin:0 0 4px">InsideFPV</h3>
+              <div class="muted">Product Design Intern • May–Nov 2023</div>
+              <p class="muted" style="margin:8px 0 0">Defense drone design • CAD → AM → testing • Kaizen iterations.</p>
+            </button>
+            <div class="tile-content">
+              <ul class="clean">
+                <li>Topology-optimized arms, weight-to-stiffness lattices.</li>
+                <li>Iterated cooling, arm quick-release; field-tested.</li>
+              </ul>
+              <div class="grid three" data-gallery>
+                <div class="ratio r4x3"><img src="images/projects/drone/1.jpg" alt=""></div>
+                <div class="ratio r4x3"><img src="images/projects/drone/2.jpg" alt=""></div>
+                <div class="ratio r4x3"><img src="images/projects/drone/3.jpg" alt=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <span class="node"></span>
+          <div class="tile">
+            <button class="tile-toggle" aria-expanded="false">
+              <h3 style="margin:0 0 4px">Team RoverX – VIT Vellore</h3>
+              <div class="muted">Mechanical Core Member • 2022–2023</div>
+              <p class="muted" style="margin:8px 0 0">Rover mechanisms, drivetrain, and integration for competitions.</p>
+            </button>
+            <div class="tile-content">
+              <ul class="clean">
+                <li>Rocker-bogie elements, wheel hubs for harsh terrain.</li>
+                <li>Optimized reductions & belt drives for torque/efficiency.</li>
+              </ul>
+              <!-- Rover photo in uniform 4:3 thumbs + optional auto-fit full-width -->
+              <div class="grid three" data-gallery>
+                <div class="ratio r4x3"><img src="images/rover.png" alt="Rover"></div>
+                <div class="ratio r4x3"><img src="images/rover.jpg" alt="Rover alt"></div>
+                <div class="ratio r4x3"><img src="images/rover.jpg" alt="Rover alt 2"></div>
+              </div>
+              <!-- If you want a full-width adaptive box for a hero shot, use this instead: -->
+              <!-- <div class="auto-fit" style="margin-top:12px"><img src="images/rover.jpg" alt="Rover full"></div> -->
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /vline-wrap -->
+    </div>
+  </section>
+
+  <!-- PROJECTS (back to after Experience; only image optimization applied) -->
+  <section id="projects" class="alt">
+    <div class="container">
+      <h2>Projects</h2>
+
+      <div class="grid two">
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <!-- Uniform 16:9 cover regardless of source image size -->
+            <div class="ratio r16x9"><img src="images/projects/dtwin/1.jpg" alt="Digital Twin cover"></div>
+            <h3 style="margin:14px 0 4px">Digital Twin of UR5 Robot</h3>
+            <div class="muted">Trajectory planning, IK, dynamics; energy efficiency assessment.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">MATLAB</span><span class="pill">Simulink</span><span class="pill">Kinematics</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <ul class="clean">
+              <li>6-DOF rigid body tree, waypoint planner (Cartesian → joint space).</li>
+              <li>Computed-torque control with viscous/Coulomb friction modeling.</li>
+              <li>Compared simulation vs. physical UR5 logs for validation.</li>
+            </ul>
+            <!-- Uniform 4:3 thumbnails open in lightbox -->
+            <div class="grid three" data-gallery>
+              <div class="ratio r4x3"><img src="images/projects/dtwin/1.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/dtwin/2.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/dtwin/3.jpg" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <div class="ratio r16x9"><img src="images/projects/steam/1.jpg" alt="Smart Steam Trap cover"></div>
+            <h3 style="margin:14px 0 4px">Smart Steam Trap</h3>
+            <div class="muted">Industrial IoT controls; reduced steam loss vs mechanical trap.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">Industrial IoT</span><span class="pill">Controls</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <ul class="clean">
+              <li>Differential sensing + solenoid actuation with fail-safe bypass.</li>
+              <li>Bench tests confirm lower steam losses.</li>
+            </ul>
+            <div class="grid three" data-gallery>
+              <div class="ratio r4x3"><img src="images/projects/steam/1.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/steam/2.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/steam/1.jpg" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <div class="ratio r16x9"><img src="images/projects/drone/1.jpg" alt="3D Printed Drone cover"></div>
+            <h3 style="margin:14px 0 4px">3D-Printed Drone</h3>
+            <div class="muted">Lightweight AM drone; runner-up at AM Hackathon.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">AM</span><span class="pill">Aero</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <ul class="clean">
+              <li>Topology-optimized arms; vibration isolation for FC.</li>
+              <li>Rapid print-test-iterate loop (PLA-CF, PETG).</li>
+            </ul>
+            <div class="grid three" data-gallery>
+              <div class="ratio r4x3"><img src="images/projects/drone/1.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/drone/2.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/drone/3.jpg" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <div class="ratio r16x9"><img src="images/projects/wheel/1.jpg" alt="Wheelbarrow FEA cover"></div>
+            <h3 style="margin:14px 0 4px">FEA of Wheelbarrow</h3>
+            <div class="muted">Stress distribution & safety factor for load cases.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">SolidWorks</span><span class="pill">FEA</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <ul class="clean">
+              <li>Meshed frame & tray; realistic boundary conditions.</li>
+              <li>Identified hotspots; suggested ribs/material changes.</li>
+            </ul>
+            <div class="grid three" data-gallery>
+              <div class="ratio r4x3"><img src="images/projects/wheel/1.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/wheel/2.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/wheel/1.jpg" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile">
+          <button class="tile-toggle" aria-expanded="false">
+            <div class="ratio r16x9"><img src="images/projects/gear/1.jpg" alt="Sun & Planet Gear cover"></div>
+            <h3 style="margin:14px 0 4px">Sun & Planet Gear Design</h3>
+            <div class="muted">Torque & efficiency analysis; contact stresses and backlash.</div>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+              <span class="pill">Gear Design</span><span class="pill">Kinematics</span>
+            </div>
+          </button>
+          <div class="tile-content">
+            <ul class="clean">
+              <li>Ratios, contact stress, backlash targets.</li>
+              <li>Efficiency vs. lubrication & material.</li>
+            </ul>
+            <div class="grid three" data-gallery>
+              <div class="ratio r4x3"><img src="images/projects/gear/1.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/gear/2.jpg" alt=""></div>
+              <div class="ratio r4x3"><img src="images/projects/gear/1.jpg" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section>
+    <div class="container">
+      <h2>Awards & Achievements</h2>
+      <div class="grid two">
+        <div class="tile"><strong>International Rover Design Challenge – 1st Worldwide</strong><div class="muted">2022</div></div>
+        <div class="tile"><strong>International Rover Challenge – 2nd Worldwide (Bengaluru)</strong><div class="muted">2023</div></div>
+        <div class="tile"><strong>Special Achiever Award – VIT Vellore</strong><div class="muted">2023</div></div>
+        <div class="tile"><strong>Additive Manufacturing Hackathon – Runner-up</strong><div class="muted">3D-Printed Drone • 2023</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="alt">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="grid two">
+        <div class="tile">
+          <div><div class="muted">Email</div><a href="mailto:your.email@domain.com">your.email@domain.com</a></div>
+          <div style="margin-top:10px"><div class="muted">LinkedIn</div><a href="#">linkedin.com/in/your-handle</a></div>
+          <div style="margin-top:10px"><div class="muted">GitHub</div><a href="#">github.com/your-handle</a></div>
+          <button class="btn primary" style="margin-top:12px" id="quickEmail">Quick Email</button>
+        </div>
+
+        <form class="tile" id="contactForm">
+          <label class="muted">Name</label>
+          <input name="name" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--muted);background:#0b1220;color:var(--text);margin:6px 0 10px">
+          <label class="muted">Email</label>
+          <input type="email" name="email" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--muted);background:#0b1220;color:var(--text);margin:6px 0 10px">
+          <label class="muted">Message</label>
+          <textarea name="message" rows="4" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--muted);background:#0b1220;color:var(--text);margin:6px 0 12px"></textarea>
+          <button class="btn" type="submit">Send</button>
+        </form>
+      </div>
+      <p class="muted" style="font-size:12px;margin-top:8px">
+        Put files in <code>images/</code>. Covers use a uniform 16:9 box; thumbnails are 4:3; logos/photos inside details use the fixed
+        <code>.image-box</code> (no crop). Lightbox shows full image with <em>contain</em>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 Ashutosh Parmar • Portfolio
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-inner">
+    <img class="lb-img" id="lbImg" alt="">
+    <button class="lb-btn lb-close" id="lbClose">✕</button>
+    <button class="lb-btn lb-prev" id="lbPrev">←</button>
+    <button class="lb-btn lb-next" id="lbNext">→</button>
+    <div class="lb-count" id="lbCount"></div>
+  </div>
+</div>
+
+<script>
+  // Hide header on scroll down, show on scroll up
+  (function(){
+    const header = document.getElementById('siteHeader');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY || 0;
+      const down = y > lastY;
+      const nearTop = y < 24;
+      header.classList.toggle('hidden', down && !nearTop);
+      lastY = y;
+    }, {passive:true});
+  })();
+
+  // Expand/collapse tiles (experience + projects)
+  document.querySelectorAll('.tile .tile-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tile = btn.closest('.tile');
+      const open = tile.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // Lightbox for any grid with data-gallery
+  (function(){
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCount = document.getElementById('lbCount');
+    const prev = document.getElementById('lbPrev');
+    const next = document.getElementById('lbNext');
+    const close = document.getElementById('lbClose');
+
+    let currentList = [];
+    let idx = 0;
+
+    function open(list, i){
+      currentList = list; idx = i;
+      render(); lb.classList.add('open');
+    }
+    function render(){
+      lbImg.src = currentList[idx];
+      lbCount.textContent = (idx+1) + ' / ' + currentList.length;
+    }
+    function nav(d){ idx = (idx + d + currentList.length) % currentList.length; render(); }
+
+    document.querySelectorAll('[data-gallery]').forEach(g => {
+      const imgs = Array.from(g.querySelectorAll('img'));
+      imgs.forEach((img, i) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => open(imgs.map(n => n.src), i));
+      });
+    });
+
+    prev.onclick = () => nav(-1);
+    next.onclick = () => nav(1);
+    close.onclick = () => lb.classList.remove('open');
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) lb.classList.remove('open'); });
+    document.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') lb.classList.remove('open');
+      if(e.key === 'ArrowLeft') nav(-1);
+      if(e.key === 'ArrowRight') nav(1);
+    });
+  })();
+
+  // Contact actions
+  document.getElementById('quickEmail')?.addEventListener('click', () => {
+    const subject = encodeURIComponent('Portfolio inquiry');
+    const body = encodeURIComponent('Hi Ashutosh,\n\nI saw your portfolio and would like to discuss ...\n\nThanks,');
+    location.href = 'mailto:your.email@domain.com?subject='+subject+'&body='+body;
+  });
+  document.getElementById('contactForm')?.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const f = e.currentTarget;
+    const subject = encodeURIComponent('Message from ' + f.name.value);
+    const body = encodeURIComponent(f.message.value + '\n\nRespond to: ' + f.email.value);
+    location.href = 'mailto:your.email@domain.com?subject='+subject+'&body='+body;
+  });
+</script>
 </body>
 </html>
