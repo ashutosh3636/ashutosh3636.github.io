@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -167,7 +166,7 @@
                 <li>Supplier collaboration for DFM & cost-down proposals.</li>
               </ul>
               <!-- Slideshow: add/remove files as needed (any ratio works) -->
-              <div class="xslider" data-images='["images/whirlpool/1.png","images/whirlpool/2.png","images/whirlpool/3.png","images/4.png"]'>
+              <div class="xslider" data-images='["images/whirlpool/1.png","images/whirlpool/2.png","images/whirlpool/3.png","images/whirlpool4.png"]'>
                 <button class="xs-btn xs-prev" aria-label="Previous">←</button>
                 <button class="xs-btn xs-next" aria-label="Next">→</button>
                 <div class="xs-count"></div>
@@ -300,7 +299,7 @@
         <!-- 3D-Printed Drone -->
         <div class="tile">
           <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/3d_printed_drone/2.png" alt="3D-Printed Drone cover"></div>
+            <div class="ratio r16x9"><img src="images/3d_printed_drone/2.PNG" alt="3D-Printed Drone cover"></div>
             <h3 style="margin:14px 0 4px">3D-Printed Drone</h3>
             <div class="muted"><strong>Objective:</strong> Lightweight drone optimized for stiffness-to-weight and rapid iteration.</div>
             <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
@@ -341,7 +340,7 @@
         <!-- FEA Wheelbarrow -->
         <div class="tile">
           <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/FEA analysis/2.jpg" alt="FEA of Wheelbarrow cover"></div>
+            <div class="ratio r16x9"><img src="images/FEA analysis/2.JPG" alt="FEA of Wheelbarrow cover"></div>
             <h3 style="margin:14px 0 4px">FEA of Wheelbarrow</h3>
             <div class="muted"><strong>Objective:</strong> Assess stresses and safety factors under varied load cases.</div>
             <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
@@ -350,7 +349,7 @@
           </button>
           <div class="tile-content">
             <p class="muted" style="margin:8px 0">Meshed components, applied realistic constraints, identified hotspots and reinforcements.</p>
-            <div class="xslider" data-images='["images/FEA analysis/ss.png","images/FEA analysis/mesh.png","images/FEA analysis/fixedpose.png","images/FEA analysis/force.png"]'>
+            <div class="xslider" data-images='["images/FEA analysis/ss.PNG","images/FEA analysis/mesh.PNG","images/FEA analysis/fixedpose.PNG","images/FEA analysis/force.PNG"]'>
               <button class="xs-btn xs-prev" aria-label="Previous">←</button>
               <button class="xs-btn xs-next" aria-label="Next">→</button>
               <div class="xs-count"></div>
@@ -376,16 +375,39 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="alt">
-    <div class="container">
-      <h2>Contact</h2>
-      <div class="grid two">
-        <div class="tile">
-          <div><div class="muted">Email</div><a href="mailto:ashutoshparmar08@gmail.com">ashutoshparmar08@gmail.com/a></div>
-          <div style="margin-top:10px"><div class="muted">LinkedIn</div><a href="#">linkedin.com/in/your-handle</a></div>
-          <div style="margin-top:10px"><div class="muted">GitHub</div><a href="#">github.com/your-handle</a></div>
-          <button class="btn primary" style="margin-top:12px" id="quickEmail">Quick Email</button>
+ <section id="contact" class="alt">
+  <div class="container">
+    <h2>Contact</h2>
+    <div class="grid two">
+      <div class="tile">
+        <!-- Email -->
+        <div>
+          <div class="muted">Email</div>
+          <a href="mailto:ashutoshparmar08@gmail.com">ashutoshparmar08@gmail.com</a>
         </div>
+
+        <!-- LinkedIn -->
+        <div style="margin-top:10px">
+          <div class="muted">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/ashutosh-parmar" target="_blank">
+            linkedin.com/in/ashutosh-parmar
+          </a>
+        </div>
+
+        <!-- GitHub -->
+        <div style="margin-top:10px">
+          <div class="muted">GitHub</div>
+          <a href="https://github.com/ashutosh3636" target="_blank">
+            github.com/ashutosh3636
+          </a>
+        </div>
+
+        <button class="btn primary" style="margin-top:12px" id="quickEmail">Quick Email</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         <form class="tile" id="contactForm">
           <label class="muted">Name</label>
@@ -398,8 +420,7 @@
         </form>
       </div>
       <p class="muted" style="font-size:12px;margin-top:8px">
-        Put files in <code>images/</code>. Covers are uniform 16:9; slideshows use <em>contain</em> to show full image (any ratio).
-        File paths are case-sensitive on GitHub Pages.
+       
       </p>
     </div>
   </section>
