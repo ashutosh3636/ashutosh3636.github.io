@@ -1,512 +1,350 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ashutosh Parmar — Portfolio</title>
-<style>
-  :root{
-    --bg:#0f172a;          /* slate-900 */
-    --panel:#111827;       /* gray-900 */
-    --muted:#374151;       /* gray-700 */
-    --text:#e5e7eb;        /* gray-200 */
-    --text-dim:#a1a1aa;    /* zinc-400 */
-    --brand:#6366f1;       /* indigo-500 */
-    --brand-2:#06b6d4;     /* cyan-500 */
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
-    background:var(--bg); color:var(--text);
-  }
-  a{color:var(--brand); text-decoration:none}
-  .container{max-width:1100px; margin:0 auto; padding:0 20px}
-  .btn{
-    display:inline-block; padding:10px 16px; border-radius:12px; border:1px solid var(--muted);
-    background:#0b1220; color:var(--text); cursor:pointer;
-  }
-  .btn.primary{background:var(--brand); border-color:transparent}
-  .btn:hover{filter:brightness(1.06)}
-
-  /* Header */
-  header{
-    position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(6px);
-    background:rgba(15,23,42,.75); border-bottom:1px solid #1f2937; transition:transform .25s ease;
-  }
-  header.hidden{transform:translateY(-100%)}
-  .header-inner{padding:28px 0; text-align:center}
-  .title{margin:0; font-size:34px}
-  .subtitle{margin:6px 0 0; color:var(--text-dim)}
-  .nav{margin-top:12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
-
-  /* Sections */
-  section{padding:40px 0}
-  section.alt{background:#0a0f1d}
-  h2{margin:0 0 18px; font-size:28px}
-
-  /* Cards / tiles */
-  .tile{
-    background:rgba(17,24,39,.9); border:1px solid var(--muted); border-radius:18px;
-    padding:18px; transition:border-color .2s ease, transform .2s ease;
-  }
-  .tile:hover{border-color:#475569; transform:translateY(-1px)}
-  .tile-head{display:flex; gap:12px; align-items:flex-start; text-align:left}
-  .chip{display:inline-block; padding:2px 8px; font-size:12px; border-radius:999px; border:1px solid var(--muted); background:#0a0f1d; color:#cbd5e1}
-
-  /* Vertical timeline */
-  .vline-wrap{position:relative}
-  .vline{position:absolute; left:14px; top:0; bottom:0; width:3px; background:linear-gradient(#6366f1,#a855f7,#06b6d4); border-radius:2px}
-  .node{position:absolute; left:8px; margin-top:7px; width:14px; height:14px; border-radius:50%; background:#fff; border:1px solid #334155}
-  .tl-item{position:relative; padding-left:40px; margin-bottom:16px}
-
-  /* Expand / collapse */
-  .tile-toggle{all:unset; cursor:pointer; display:block; width:100%}
-  .tile-content{display:none; margin-top:10px}
-  .tile.open .tile-content{display:block}
-
-  /* Grids */
-  .grid{display:grid; gap:16px}
-  .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-  @media (max-width:780px){ .grid.two,.grid.three{grid-template-columns:1fr} }
-
-  /* Ratio covers & thumbs */
-  .ratio{position:relative;width:100%;overflow:hidden;border-radius:14px;border:1px solid var(--muted);background:#000}
-  .r16x9{padding-bottom:56.25%} /* cover */
-  .r4x3{padding-bottom:75%}     /* thumbs if you use them */
-  .ratio>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-
-  /* Pills */
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#0a0f1d;border:1px solid var(--muted);font-size:12px;color:#cbd5e1}
-
-  /* Slideshow (per-tile, mixed ratios handled with contain) */
-  .xslider{position:relative;width:100%;height:320px;background:#000;border:1px solid #374151;border-radius:14px;overflow:hidden;margin-top:12px}
-  .xslider img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-  .xs-btn{position:absolute;top:50%;transform:translateY(-50%);border:0;cursor:pointer;background:rgba(255,255,255,.12);color:#fff;padding:8px 10px;border-radius:10px}
-  .xs-prev{left:8px}.xs-next{right:8px}
-  .xs-count{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#e2e8f0;font-size:14px}
-
-  footer{border-top:1px solid #1f2937; padding:26px 0; color:#9ca3af; text-align:center}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashutosh Parmar | Creative Dev & CAE Engineer</title>
+    <meta name="description"
+        content="Portfolio of Ashutosh Parmar, a Creative Developer and CAE Engineer specializing in automation and optimization.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-
-<header id="siteHeader">
-  <div class="container header-inner">
-    <h1 class="title">Ashutosh Parmar</h1>
-    <p class="subtitle">Mechanical Engineer • Product Design • Robotics</p>
-    <nav class="nav">
-      <a class="btn" href="#about">About</a>
-      <a class="btn" href="#education">Education</a>
-      <a class="btn" href="#experience">Experience</a>
-      <a class="btn" href="#projects">Projects</a>
-      <a class="btn primary" href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-
-  <!-- About -->
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <div class="tile">
-        <p class="muted" style="margin:0">
-          Graduate in Mechanical Engineering focused on product design, robotics, and manufacturing systems.
-          I work across CAD/FEA, Digital Twin simulations (MATLAB/Simulink), and rapid prototyping to ship reliable, manufacturable designs.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education" class="alt">
-    <div class="container">
-      <h2>Education</h2>
-      <div class="tile">
-        <div class="tile-head">
-          <div>
-            <h3 style="margin:0 0 4px">VIT Vellore</h3>
-            <div class="muted">B.Tech in Mechanical Engineering • 2021 – 2025</div>
-            <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
-              <li>Focus: Product Design, Robotics, and Digital Twin.</li>
-              <li>Notable work: Digital Twin of UR5, Smart Steam Trap, 3D-Printed Drone.</li>
-              <li>Awards: IRDC 2022 (1st), IRC 2023 (2nd), VIT Special Achiever.</li>
+    <div class="cursor-glow"></div>
+    <header id="header">
+        <nav class="navbar">
+            <div class="logo">Ashutosh.</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE: vertical timeline, inline expand; includes locations -->
-  <section id="experience">
-    <div class="container">
-      <h2>Experience</h2>
-      <div class="vline-wrap">
-        <div class="vline"></div>
-
-        <!-- Whirlpool -->
-        <div class="tl-item">
-          <span class="node"></span>
-          <div class="tile">
-            <button class="tile-toggle" aria-expanded="false">
-              <h3 style="margin:0 0 4px">Whirlpool Corporation</h3>
-              <div class="muted">Product Design Intern • 2025 • <strong>Pune, India</strong></div>
-              <p class="muted" style="margin:8px 0 0">
-                Worked on laundry & dispenser systems. 3 patents + 1 trade secret (under review).
-              </p>
-            </button>
-            <div class="tile-content">
-              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
-                <li>Design iterations for dispenser sub-assemblies (reliability & manufacturability).</li>
-                <li>DFMEA and tolerance studies to de-risk before EVT.</li>
-                <li>Supplier collaboration for DFM & cost-down proposals.</li>
-              </ul>
-              <!-- Slideshow: add/remove files as needed (any ratio works) -->
-              <div class="xslider" data-images='["images/whirlpool/1.png","images/whirlpool/2.png","images/whirlpool/3.png","images/whirlpool4.png"]'>
-                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-                <button class="xs-btn xs-next" aria-label="Next">→</button>
-                <div class="xs-count"></div>
-              </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-          </div>
-        </div>
+        </nav>
+    </header>
 
-        <!-- Orangewood -->
-        <div class="tl-item">
-          <span class="node"></span>
-          <div class="tile">
-            <button class="tile-toggle" aria-expanded="false">
-              <h3 style="margin:0 0 4px">Orangewood Labs (YC)</h3>
-              <div class="muted">Robotics Intern • 2019–2021, 2021–2025 • <strong>San Francisco, USA (remote)</strong></div>
-              <p class="muted" style="margin:8px 0 0">Digital Twin of UR5 for kinematics/dynamics, trajectory planning, computed-torque control.</p>
-            </button>
-            <div class="tile-content">
-              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
-                <li>Trapezoidal profiles; IK & Jacobian controllers.</li>
-                <li>Friction & energy modeling; validated on UR5 logs.</li>
-                <li>Waypoint → joint trajectory tooling.</li>
-              </ul>
-              <div class="xslider" data-images='["images/orangewood/sunplanet2.JPG","images/orangewood/arm.JPG","images/orangewood/sun_planet1.JPG","images/orangewood/3d_protype.JPG"]'>
-                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-                <button class="xs-btn xs-next" aria-label="Next">→</button>
-                <div class="xs-count"></div>
-              </div>
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <h1 class="hero-title fade-in-up">Hello, I'm <span class="highlight">Ashutosh Parmar</span></h1>
+                <p class="hero-subtitle fade-in-up delay-1"><strong>Mechanical Engineer</strong> & <strong>Product
+                        Designer</strong>.<br>Specializing in Robotics, CAE Automation, and Digital Twin Simulations.
+                </p>
+                <div class="hero-cta fade-in-up delay-2">
+                    <a href="#experience" class="btn btn-primary">My Experience</a>
+                    <a href="#projects" class="btn btn-secondary">View Projects</a>
+                </div>
             </div>
-          </div>
-        </div>
+            <div class="hero-background-shapes"></div>
+        </section>
 
-        <!-- InsideFPV -->
-        <div class="tl-item">
-          <span class="node"></span>
-          <div class="tile">
-            <button class="tile-toggle" aria-expanded="false">
-              <h3 style="margin:0 0 4px">InsideFPV</h3>
-              <div class="muted">Product Design Intern • May–Nov 2023 • <strong>Surat, India</strong></div>
-              <p class="muted" style="margin:8px 0 0">Defense drone design • CAD → AM → testing • Kaizen iterations.</p>
-            </button>
-            <div class="tile-content">
-              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
-                <li>Topology-optimized arms, weight-to-stiffness lattices.</li>
-                <li>Iterated cooling, arm quick-release; field-tested.</li>
-              </ul>
-              <div class="xslider" data-images='["images/insideFPV/drone2.JPG","images/insideFPV/droone1.JPG","images/insideFPV/camera.JPG"]'>
-                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-                <button class="xs-btn xs-next" aria-label="Next">→</button>
-                <div class="xs-count"></div>
-              </div>
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title fade-in">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text fade-in-left">
+                        <p>I am a graduate in Mechanical Engineering from VIT Vellore, focused on product design,
+                            robotics, and manufacturing systems. I work across CAD/FEA, Digital Twin simulations, and
+                            rapid prototyping to ship reliable, manufacturable designs.</p>
+                        <p>Currently, I am working at Mercedes Benz R&D India, developing algorithms to automate DFM
+                            checks and streamlining engineering workflows with Python.</p>
+                        <ul class="skills-list">
+                            <li>Product Design</li>
+                            <li>Robotics</li>
+                            <li>CAE / FEA</li>
+                            <li>Python (ANSA/Blender API)</li>
+                            <li>MATLAB / Simulink</li>
+                            <li>Digital Twin</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
+        </section>
 
-        <!-- RoverX -->
-        <div class="tl-item">
-          <span class="node"></span>
-          <div class="tile">
-            <button class="tile-toggle" aria-expanded="false">
-              <h3 style="margin:0 0 4px">Team RoverX – VIT Vellore</h3>
-              <div class="muted">Mechanical Core Member • 2022–2023 • <strong>Vellore, India</strong></div>
-              <p class="muted" style="margin:8px 0 0">Rover mechanisms, drivetrain, and integration for competitions.</p>
-            </button>
-            <div class="tile-content">
-              <ul class="clean" style="list-style:disc; padding-left:18px; margin:8px 0">
-                <li>Rocker-bogie elements, wheel hubs for harsh terrain.</li>
-                <li>Optimized reductions & belt drives for torque/efficiency.</li>
-              </ul>
-              <div class="xslider" data-images='["images/roverx/1000021607.jpg","images/roverx/rover.jpg","images/roverx/PXL_20230327_220106027.jpg","images/roverx/1000020893.jpg","images/roverx/PXL_20221112_095711537MP.jpg"]'>
-                <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-                <button class="xs-btn xs-next" aria-label="Next">→</button>
-                <div class="xs-count"></div>
-              </div>
+        <section id="education" class="experience-section">
+            <div class="container">
+                <h2 class="section-title fade-in">Education</h2>
+                <div class="experience-card fade-in-up">
+                    <div class="exp-header">
+                        <h3>B.Tech in Mechanical Engineering</h3>
+                        <span class="company highlight">VIT Vellore</span>
+                        <span class="date">2021 – 2025</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li><strong>Focus:</strong> Product Design, Robotics, and Digital Twin.</li>
+                        <li><strong>Notable Work:</strong> Digital Twin of UR5, Smart Steam Trap, 3D-Printed Drone.</li>
+                        <li><strong>Awards:</strong> IRDC 2022 (1st), IRC 2023 (2nd), VIT Special Achiever.</li>
+                    </ul>
+                </div>
             </div>
-          </div>
-        </div>
+        </section>
 
-      </div><!-- /vline-wrap -->
-    </div>
-  </section>
+        <section id="experience" class="experience-section">
+            <div class="container">
+                <h2 class="section-title fade-in">Experience</h2>
 
-  <!-- PROJECTS (after experience; interactive tiles; each with slideshow + objective/desc/tech) -->
-  <section id="projects" class="alt">
-    <div class="container">
-      <h2>Projects</h2>
+                <!-- Mercedes Benz (Current) -->
+                <div class="experience-card fade-in-up">
+                    <div class="exp-header">
+                        <h3>CAE Intern</h3>
+                        <span class="company highlight">Mercedes Benz Research and Development India</span>
+                        <span class="date">Nov 2025 - Present | Pune, India</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Developing algorithms to automate <strong>DFM checks</strong> (Draft, Radius of Curvature,
+                            Minimum Thickness).</li>
+                        <li>Automating workflows using <strong>ANSA scripting</strong> and <strong>Blender
+                                scripting</strong>.</li>
+                        <li>Working on part optimization using <strong>ANSA</strong> and <strong>Altair
+                                OptiStruct</strong> to enhance structural performance.</li>
+                    </ul>
+                </div>
 
-      <div class="grid two">
+                <!-- Whirlpool -->
+                <div class="experience-card fade-in-up delay-1">
+                    <div class="exp-header">
+                        <h3>Product Design Intern</h3>
+                        <span class="company highlight">Whirlpool Corporation</span>
+                        <span class="date">2025 | Pune, India</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Worked on laundry & dispenser systems. 3 patents + 1 trade secret (under review).</li>
+                        <li>Design iterations for dispenser sub-assemblies (reliability & manufacturability).</li>
+                        <li>DFMEA and tolerance studies to de-risk before EVT.</li>
+                        <li>Supplier collaboration for DFM & cost-down proposals.</li>
+                    </ul>
+                </div>
 
-        <!-- Digital Twin -->
-        <div class="tile">
-          <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/dgital twin/traj2.png" alt="Digital Twin of UR5 cover"></div>
-            <h3 style="margin:14px 0 4px">Digital Twin of UR5 Robot</h3>
-            <div class="muted"><strong>Objective:</strong> Model and validate a UR5 manipulator for safe motion planning and control.</div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">MATLAB</span><span class="pill">Simulink</span><span class="pill">Kinematics</span><span class="pill">Dynamics</span>
+                <!-- Orangewood Labs -->
+                <div class="experience-card fade-in-up delay-1">
+                    <div class="exp-header">
+                        <h3>Robotics Intern</h3>
+                        <span class="company highlight">Orangewood Labs (YC)</span>
+                        <span class="date">2019–2021, 2021–2025 | Remote (SF)</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Digital Twin of UR5 for kinematics/dynamics, trajectory planning, computed-torque control.
+                        </li>
+                        <li>Trapezoidal profiles; IK & Jacobian controllers.</li>
+                        <li>Friction & energy modeling; validated on UR5 logs.</li>
+                    </ul>
+                </div>
+
+                <!-- InsideFPV -->
+                <div class="experience-card fade-in-up delay-1">
+                    <div class="exp-header">
+                        <h3>Product Design Intern</h3>
+                        <span class="company highlight">InsideFPV</span>
+                        <span class="date">May–Nov 2023 | Surat, India</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Defense drone design • CAD → AM → testing • Kaizen iterations.</li>
+                        <li>Topology-optimized arms, weight-to-stiffness lattices.</li>
+                        <li>Iterated cooling, arm quick-release; field-tested.</li>
+                    </ul>
+                </div>
+
+                <!-- RoverX -->
+                <div class="experience-card fade-in-up delay-1">
+                    <div class="exp-header">
+                        <h3>Mechanical Core Member</h3>
+                        <span class="company highlight">Team RoverX – VIT Vellore</span>
+                        <span class="date">2022–2023 | Vellore, India</span>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Rover mechanisms, drivetrain, and integration for competitions.</li>
+                        <li>Rocker-bogie elements, wheel hubs for harsh terrain.</li>
+                        <li>Optimized reductions & belt drives for torque/efficiency.</li>
+                    </ul>
+                </div>
+
             </div>
-          </button>
-          <div class="tile-content">
-            <p class="muted" style="margin:8px 0">Built kinematics and dynamics, trajectory planners, and computed-torque control; validated against logs.</p>
-            <div class="xslider" data-images='["images/dgital twin/IMG_9849.jpg","images/dgital twin/ur5robo.png","images/dgital twin/robot in action.png","images/dgital twin/IMG_6ECB64476769-1.jpeg","images/dgital twin/IMG_9798.JPG"]'>
-              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-              <button class="xs-btn xs-next" aria-label="Next">→</button>
-              <div class="xs-count"></div>
+        </section>
+
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2 class="section-title fade-in">Projects</h2>
+                <div class="projects-grid">
+
+                    <!-- Digital Twin -->
+                    <article class="project-card fade-in-up">
+                        <div class="project-image">
+                            <!-- Placeholder for images/digital_twin/traj2.png -->
+                            <img src="images/digital_twin/traj2.png" alt="Digital Twin of UR5"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                                style="width:100%; height:100%; object-fit:cover;">
+                            <div class="placeholder-img" style="display:none">Digital Twin UR5</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Digital Twin of UR5 Robot</h3>
+                            <p>Model and validate a UR5 manipulator for safe motion planning and control. Built
+                                kinematics/dynamics and trajectory planners.</p>
+                            <div class="project-tags">
+                                <span>MATLAB</span>
+                                <span>Simulink</span>
+                                <span>Kinematics</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Mercedes DFM (New) -->
+                    <article class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="dfm_project.png" alt="DFM Automation"
+                                style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="project-info">
+                            <h3>Automated DFM & Optimization</h3>
+                            <p>Automating Draft analysis, Radius checks, and Thickness verification using Python
+                                scripting in ANSA/Blender.</p>
+                            <div class="project-tags">
+                                <span>Python</span>
+                                <span>ANSA</span>
+                                <span>OptiStruct</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Smart Steam Trap -->
+                    <article class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="images/smart_steam_trap/1.png" alt="Smart Steam Trap"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                                style="width:100%; height:100%; object-fit:cover;">
+                            <div class="placeholder-img" style="display:none">Smart Steam Trap</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Smart Steam Trap</h3>
+                            <p>Designed sensor-actuated trap with fail-safe bypass to reduce energy loss by
+                                electronically separating steam and condensate.</p>
+                            <div class="project-tags">
+                                <span>Industrial IoT</span>
+                                <span>Controls</span>
+                                <span>Sensors</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 3D Drone -->
+                    <article class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="images/3d_printed_drone/2.PNG" alt="3D Drone"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                                style="width:100%; height:100%; object-fit:cover;">
+                            <div class="placeholder-img" style="display:none">3D Printed Drone</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>3D-Printed Drone</h3>
+                            <p>Lightweight drone optimized for stiffness-to-weight and rapid iteration.
+                                Topology-optimized arms.</p>
+                            <div class="project-tags">
+                                <span>Additive Mfg</span>
+                                <span>CAD</span>
+                                <span>Flight</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Sun & Planet Gear -->
+                    <article class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="images/planetary_gear/1.png" alt="Planetary Gear"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                                style="width:100%; height:100%; object-fit:cover;">
+                            <div class="placeholder-img" style="display:none">Planetary Gear</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Sun & Planet Gear Design</h3>
+                            <p>Design and analyze sun-planet mechanism for torque transmission. Calculated ratios and
+                                contact stresses.</p>
+                            <div class="project-tags">
+                                <span>Gear Design</span>
+                                <span>Kinematics</span>
+                                <span>Analysis</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Wheelbarrow FEA -->
+                    <article class="project-card fade-in-up">
+                        <div class="project-image">
+                            <img src="images/fea_analysis/2.JPG" alt="Wheelbarrow FEA"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                                style="width:100%; height:100%; object-fit:cover;">
+                            <div class="placeholder-img" style="display:none">Wheelbarrow FEA</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>FEA of Wheelbarrow</h3>
+                            <p>Assess stresses and safety factors under varied load cases. Meshed components and applied
+                                realistic constraints.</p>
+                            <div class="project-tags">
+                                <span>SolidWorks</span>
+                                <span>FEA</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
-          </div>
-        </div>
+        </section>
 
-        <!-- Smart Steam Trap -->
-        <div class="tile">
-          <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/smart steam trap/1.png" alt="Smart Steam Trap cover"></div>
-            <h3 style="margin:14px 0 4px">Smart Steam Trap</h3>
-            <div class="muted"><strong>Objective:</strong> Reduce energy loss by electronically separating steam and condensate.</div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">Industrial IoT</span><span class="pill">Controls</span><span class="pill">Sensors</span>
+        <section id="awards" class="awards-section">
+            <div class="container">
+                <h2 class="section-title fade-in">Awards & Achievements</h2>
+                <div class="awards-grid fade-in-up">
+                    <div class="award-card">
+                        <h3>International Rover Design Challenge</h3>
+                        <p class="highlight">1st Worldwide</p>
+                        <span class="date">2022</span>
+                    </div>
+                    <div class="award-card">
+                        <h3>International Rover Challenge</h3>
+                        <p class="highlight">2nd Worldwide (Bengaluru)</p>
+                        <span class="date">2023</span>
+                    </div>
+                    <div class="award-card">
+                        <h3>VIT Special Achiever Award</h3>
+                        <p class="highlight">VIT Vellore</p>
+                        <span class="date">2023</span>
+                    </div>
+                    <div class="award-card">
+                        <h3>Additive Manufacturing Hackathon</h3>
+                        <p class="highlight">Runner-up</p>
+                        <span class="date">3D-Printed Drone • 2023</span>
+                    </div>
+                </div>
             </div>
-          </button>
-          <div class="tile-content">
-            <p class="muted" style="margin:8px 0">Designed sensor-actuated trap with fail-safe bypass; benchtop validation.</p>
-            <div class="xslider" data-images='["images/smart steam trap/3.png","images/smart steam trap/2.png"]'>
-              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-              <button class="xs-btn xs-next" aria-label="Next">→</button>
-              <div class="xs-count"></div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container contact-container">
+                <h2 class="section-title fade-in">Let's Connect</h2>
+                <p class="contact-text fade-in-up">Interested in discussing Product Design, Robotics, or AE? Reach out!
+                </p>
+                <div class="contact-buttons fade-in-up delay-1">
+                    <a href="mailto:ashutoshparmar08@gmail.com" class="btn btn-primary">Email Me</a>
+                    <a href="https://www.linkedin.com/in/ashutosh-parmar" target="_blank"
+                        class="btn btn-secondary">LinkedIn</a>
+                    <a href="https://github.com/ashutosh3636" target="_blank" class="btn btn-secondary">GitHub</a>
+                </div>
+
+                <footer class="footer">
+                    <p>&copy; 2025 Ashutosh Parmar. All rights reserved.</p>
+                </footer>
             </div>
-          </div>
-        </div>
+        </section>
+    </main>
 
-        <!-- 3D-Printed Drone -->
-        <div class="tile">
-          <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/3d_printed_drone/2.PNG" alt="3D-Printed Drone cover"></div>
-            <h3 style="margin:14px 0 4px">3D-Printed Drone</h3>
-            <div class="muted"><strong>Objective:</strong> Lightweight drone optimized for stiffness-to-weight and rapid iteration.</div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">Additive Mfg</span><span class="pill">CAD</span><span class="pill">Flight</span>
-            </div>
-          </button>
-          <div class="tile-content">
-            <p class="muted" style="margin:8px 0">Topology-optimized arms, vibration isolation, AM-friendly design; hackathon runner-up.</p>
-            <div class="xslider" data-images='["images/3d_printed_drone/1.png","images/3d_printed_drone/4.png","images/3d_printed_drone/5.png","images/3d_printed_drone/6.png"]'>
-              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-              <button class="xs-btn xs-next" aria-label="Next">→</button>
-              <div class="xs-count"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sun & Planet Gear -->
-        <div class="tile">
-          <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/Planetary Gear/1.png" alt="Sun & Planet Gear Design cover"></div>
-            <h3 style="margin:14px 0 4px">Sun & Planet Gear Design</h3>
-            <div class="muted"><strong>Objective:</strong> Design and analyze sun-planet mechanism for torque transmission.</div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">Gear Design</span><span class="pill">Kinematics</span><span class="pill">Analysis</span>
-            </div>
-          </button>
-          <div class="tile-content">
-            <p class="muted" style="margin:8px 0">Calculated ratios, contact stresses, and backlash targets; compared materials and lubrication.</p>
-            <div class="xslider" data-images='["images/Planetary Gear/2.png","images/Planetary Gear/3.png"]'>
-              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-              <button class="xs-btn xs-next" aria-label="Next">→</button>
-              <div class="xs-count"></div>
-            </div>
-          </div>
-        </div>
-
-      
-        <!-- FEA Wheelbarrow -->
-        <div class="tile">
-          <button class="tile-toggle" aria-expanded="false">
-            <div class="ratio r16x9"><img src="images/FEA analysis/2.JPG" alt="FEA of Wheelbarrow cover"></div>
-            <h3 style="margin:14px 0 4px">FEA of Wheelbarrow</h3>
-            <div class="muted"><strong>Objective:</strong> Assess stresses and safety factors under varied load cases.</div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
-              <span class="pill">SolidWorks</span><span class="pill">FEA</span>
-            </div>
-          </button>
-          <div class="tile-content">
-            <p class="muted" style="margin:8px 0">Meshed components, applied realistic constraints, identified hotspots and reinforcements.</p>
-            <div class="xslider" data-images='["images/FEA analysis/ss.PNG","images/FEA analysis/mesh.PNG","images/FEA analysis/fixedpose.PNG","images/FEA analysis/force.PNG"]'>
-              <button class="xs-btn xs-prev" aria-label="Previous">←</button>
-              <button class="xs-btn xs-next" aria-label="Next">→</button>
-              <div class="xs-count"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Awards -->
-  <section>
-    <div class="container">
-      <h2>Awards & Achievements</h2>
-      <div class="grid two">
-        <div class="tile"><strong>International Rover Design Challenge – 1st Worldwide</strong><div class="muted">2022</div></div>
-        <div class="tile"><strong>International Rover Challenge – 2nd Worldwide (Bengaluru)</strong><div class="muted">2023</div></div>
-        <div class="tile"><strong>Special Achiever Award – VIT Vellore</strong><div class="muted">2023</div></div>
-        <div class="tile"><strong>Additive Manufacturing Hackathon – Runner-up</strong><div class="muted">3D-Printed Drone • 2023</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
- <section id="contact" class="alt">
-  <div class="container">
-    <h2>Contact</h2>
-    <div class="grid two">
-      <div class="tile">
-        <!-- Email -->
-        <div>
-          <div class="muted">Email</div>
-          <a href="mailto:ashutoshparmar08@gmail.com">ashutoshparmar08@gmail.com</a>
-        </div>
-
-        <!-- LinkedIn -->
-        <div style="margin-top:10px">
-          <div class="muted">LinkedIn</div>
-          <a href="https://www.linkedin.com/in/ashutosh-parmar" target="_blank">
-            linkedin.com/in/ashutosh-parmar
-          </a>
-        </div>
-
-        <!-- GitHub -->
-        <div style="margin-top:10px">
-          <div class="muted">GitHub</div>
-          <a href="https://github.com/ashutosh3636" target="_blank">
-            github.com/ashutosh3636
-          </a>
-        </div>
-
-        <button class="btn primary" style="margin-top:12px" id="quickEmail">Quick Email</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-        <form class="tile" id="contactForm">
-          <label class="muted">Name</label>
-          <input name="name" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--muted);background:#0b1220;color:var(--text);margin:6px 0 10px">
-          <label class="muted">Email</label>
-          <input type="email" name="email" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--muted);background:#0b1220;color:var(--text);margin:6px 0 10px">
-          <label class="muted">Message</label>
-          <textarea name="message" rows="4" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--muted);background:#0b1220;color:var(--text);margin:6px 0 12px"></textarea>
-          <button class="btn" type="submit">Send</button>
-        </form>
-      </div>
-      <p class="muted" style="font-size:12px;margin-top:8px">
-       
-      </p>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  © 2025 Ashutosh Parmar • Portfolio
-</footer>
-
-<script>
-  // Hide header on scroll down, show on scroll up
-  (function(){
-    const header = document.getElementById('siteHeader');
-    let lastY = 0;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY || 0;
-      const down = y > lastY;
-      const nearTop = y < 24;
-      header.classList.toggle('hidden', down && !nearTop);
-      lastY = y;
-    }, {passive:true});
-  })();
-
-  // Expand/collapse tiles (experience + projects)
-  document.querySelectorAll('.tile .tile-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tile = btn.closest('.tile');
-      const open = tile.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  });
-
-  // Simple per-tile slideshow (supports JSON array or CSV)
-  document.addEventListener('DOMContentLoaded',function(){
-    function parseImages(el){
-      const raw=el.getAttribute('data-images')||'';
-      try{ return JSON.parse(raw); }
-      catch(e){ return raw.split(',').map(s=>s.trim()).filter(Boolean); }
-    }
-    document.querySelectorAll('.xslider').forEach(slider=>{
-      const list=parseImages(slider);
-      if(!list.length){ console.error('xslider: no images', slider); return; }
-
-      let img=slider.querySelector('img');
-      if(!img){ img=document.createElement('img'); slider.prepend(img); }
-
-      const prev=slider.querySelector('.xs-prev');
-      const next=slider.querySelector('.xs-next');
-      const count=slider.querySelector('.xs-count');
-
-      let i=0;
-      function render(){ img.src=list[i]; if(count) count.textContent=(i+1)+' / '+list.length; }
-      function nav(d){ i=(i+d+list.length)%list.length; render(); }
-
-      prev && prev.addEventListener('click', e=>{ e.stopPropagation(); nav(-1); });
-      next && next.addEventListener('click', e=>{ e.stopPropagation(); nav(1); });
-
-      // swipe
-      let sx=null;
-      slider.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; }, {passive:true});
-      slider.addEventListener('touchend', e=>{
-        if(sx==null) return;
-        const dx=e.changedTouches[0].clientX - sx;
-        if(Math.abs(dx)>40) nav(dx<0?1:-1);
-        sx=null;
-      }, {passive:true});
-
-      render();
-    });
-  });
-
-  // Contact actions
-  document.getElementById('quickEmail')?.addEventListener('click', () => {
-    const subject = encodeURIComponent('Portfolio inquiry');
-    const body = encodeURIComponent('Hi Ashutosh,\n\nI saw your portfolio and would like to discuss ...\n\nThanks,');
-    location.href = 'mailto:your.email@domain.com?subject='+subject+'&body='+body;
-  });
-  document.getElementById('contactForm')?.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const f = e.currentTarget;
-    const subject = encodeURIComponent('Message from ' + f.name.value);
-    const body = encodeURIComponent(f.message.value + '\n\nRespond to: ' + f.email.value);
-    location.href = 'mailto:your.email@domain.com?subject='+subject+'&body='+body;
-  });
-</script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
-```
